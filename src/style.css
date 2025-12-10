@@ -15,7 +15,40 @@
   --font-head: "Source Serif 4";
   --font-default: "Poppins", sans-serif;
   --aspect-unset: unset;
+  --animate-spin-slow: spin-slow 12s linear infinite;
 }
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 lg:gap-4
+           rounded-full bg-sc text-white
+           py-2 pl-5 pr-2
+           transition-all duration-200 ease-in-out
+           hover:bg-primary hover:text-white
+           w-fit overflow-hidden;
+  }
+
+  .btn-text, .btn-icon {
+    @apply transform transition-transform duration-200 ease-in-out;
+  }
+
+  /* Fallback for buttons WITHOUT SVG */
+  .btn-primary:not(:has(svg)) .btn-text {
+    @apply pr-4; /* add extra right padding */
+  }
+}
+
+
+
 
 /* ===========================
   Utilities Layer
@@ -162,8 +195,8 @@
     padding: 10px 15px;
   }
 
-  header .th-menu>ul>li>a {
-    @apply text-white hover:text-gray-300 text-[15px] uppercase transition-colors duration-200;
+  header .th-menu > ul > li > a {
+    @apply text-black hover:text-primary lg:text-white lg:hover:text-tertiary text-[15px] uppercase transition-colors duration-200;
   }
 
   @media screen and (min-width: 1024px) {
@@ -198,6 +231,7 @@
       z-index: 10;
       transform: translateX(-100%);
       display: block;
+      background: #fff;
     }
 
     header .th-menu>ul>li {
