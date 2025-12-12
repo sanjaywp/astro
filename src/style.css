@@ -56,7 +56,7 @@
 
 @layer utilities {
   p {
-    @apply leading-[2];
+    @apply leading-[2] mb-4;
   }
 
   .container {
@@ -96,44 +96,6 @@
     font-family: var(--font-default);
   }
 
-
-
-  /* Links */
-  .all-page :is(p, li, h2, h3, h4, h5, h6, summary):not(#breadcrumbs, .th-toc-wrap ul li, [class*="social-links"] ul li) a {
-    @apply border-b-2 border-primary text-primary font-semibold transition-all;
-  }
-
-  .all-page :is(p, li, h2, h3, h4, h5, h6, summary):not(#breadcrumbs, .th-toc-wrap ul li, [class*="social-links"] ul li) a:hover {
-    @apply border-b-0;
-  }
-
-  /* Lists */
-  .all-page ul li {
-    @apply list-disc marker:text-primary;
-  }
-
-  /* Margins */
-  [class*="th-con"]:not(:last-child),
-  .page-header,
-  #breadcrumbs {
-    @apply mb-[60px];
-  }
-
-  .blog-header {
-    @apply mb-10;
-  }
-
-  [class*="con-bg"] {
-    padding: 10px 0;
-  }
-
-  .page-header {
-    @apply gap-[5px];
-  }
-
-  :is(.page-header, .blog-header) #breadcrumbs {
-    @apply mb-0;
-  }
 
   /* Header */
   .th-home-page header {
@@ -281,138 +243,59 @@
   }
 }
 
-/* ===========================
-  Components Layer
-=========================== */
+
+/* Components */
 @layer components {
-  .img-placeholder {
-    @apply w-full h-full aspect-[16/9] bg-[#c7c7c7];
+  .sec-title {
+    @apply mx-auto mb-8 max-w-3xl;
   }
-
-  .img-placeholder img {
-    @apply w-full h-full object-cover;
+  /* Subtitle */
+  .sec-title .sec-subtitle {
+    @apply mb-1 text-sm font-semibold tracking-wide text-primary;
   }
-
-  .indicator {
-    @apply w-[5px] h-[5px] mx-[6px] cursor-pointer bg-[#e3e3e3] rounded-full active:w-[8px] active:h-[8px] active:bg-primary;
+  /* Dynamic Headings */
+  .sec-title h1 {
+    @apply text-5xl font-head font-bold mb-3;
   }
-
-  .th-home-page .all-page {
-    @apply pt-0;
+  .sec-title h2 {
+    @apply text-4xl font-head font-bold mb-3;
   }
-
-  .all-page {
-    @apply pb-[55px];
+  .sec-title h3 {
+    @apply text-3xl font-head font-bold mb-3;
   }
-
-  .all-page :is(ul, ol):not([class*="social-links"] ul) {
-    @apply pl-6;
+  .sec-title h4 {
+    @apply text-2xl font-head font-bold mb-3;
   }
-
-  .all-page :is(ul, ol, p, .th-toc-wrap, .wp-block-image):not([class*="social-links"] ul) {
-    @apply mb-5;
+  .sec-title h5 {
+    @apply text-xl font-head font-bold mb-3;
   }
-
-  .all-page :is(ul, ol):not([class*="social-links"] ul) li:not(:last-child) {
-    @apply leading-[1.7] mb-[15px];
+  .sec-title h6 {
+    @apply text-lg font-head font-bold mb-3;
   }
-
-  .all-page :is(h2, h3, h4, h5, h6, .h2, .h3, .h4, .h5, .h6) {
-    @apply mb-[15px];
+  /* Description – no class needed */
+  .sec-title p {
+    @apply text-base leading-relaxed text-gray-600;
   }
+}
 
-  .all-page,
-  .number-remove {
-    counter-reset: term definition;
+
+@layer components {
+  /* Card wrapper */
+  .service-card {
+   
   }
-
-  .all-page .number>*:not(a)::before {
-    @apply content-[counter(term)_"._"];
-    counter-increment: term;
+  /* Card image */
+  .service-card .card-image {
+    @apply w-full h-48 rounded-xl overflow-hidden mb-4;
   }
-
-  .th-timeline {
-    @apply flex items-center;
+  /* Title */
+  .service-card .card-title {
+    @apply text-xl font-head font-bold mb-2 text-black text-center;
   }
-
-  .sticky-header {
-    @apply sticky top-[0] left-0 z-[999] shadow lg:-translate-y-10;
-  }
-
-  #scroll_to_top {
-    @apply fixed bottom-12 right-[21px] w-[45px] h-[45px] z-[12] rounded-full cursor-pointer bg-primary flex items-center justify-center;
+  /* Description */
+  .service-card .card-text {
+    @apply text-gray-700 text-base leading-relaxed mb-5 text-center;
   }
 
 
-  .th-btn {
-    @apply cursor-pointer w-fit px-[26px] py-[8px] border border-primary bg-primary text-white text-[14px] font-normal rounded-[25px] transition-all;
-  }
-
-  .th-btn:has(svg) {
-    @apply flex items-center justify-center gap-[10px] fill-white;
-  }
-
-  .th-btn:hover {
-    @apply bg-white text-primary border-primary;
-  }
-
-  .th-btn:hover svg {
-    @apply fill-primary;
-  }
-
-  .th-travel-card .th-btn {
-    @apply px-[20px] py-[5px];
-  }
-
-  .flex-between:has(.th-sep, .th-btn) {
-    @apply mb-[30px];
-  }
-
-  footer .hero-form {
-    @apply bg-[#25535a] shadow-none;
-  }
-
-  .fo-sep::after {
-    @apply content-[""] w-[44px] h-[2px] absolute bottom-[-5px] left-0;
-    background: url("data:image/svg+xml,%3Csvg width='44' height='2' viewBox='0 0 44 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23fff' stroke-width='1.5' d='M0 1.175h32m2 0h4m2 0h4'/%3E%3C/svg%3E") no-repeat;
-  }
-
-  .img-placeholder {
-    @apply aspect-[16/9] relative overflow-hidden;
-  }
-
-  footer .menu li {
-    @apply mb-[10px];
-  }
-
-  [class*="th-con"]:not(:last-child),
-  .page-header,
-  #breadcrumbs {
-    @apply mb-[60px];
-  }
-
-  .blog-header {
-    @apply mb-10;
-  }
-
-  [class*="con-bg"] {
-    @apply px-0 py-10;
-  }
-
-  .page-header {
-    @apply gap-[5px];
-  }
-
-  :is(.page-header, .blog-header) #breadcrumbs {
-    @apply mb-0;
-  }
-
-  /* Site Button */
-  .th-btn {
-    @apply w-fit px-[26px] py-2;
-  }
-
-  .th-btn:has(svg) {
-    @apply flex items-center justify-center gap-2.5;
-  }
 }
