@@ -248,4 +248,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+
+
+  // course slider
+  new Swiper(".courses-slider", {
+    direction: "vertical",
+    slidesPerView: 4,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".courses-slider .swiper-pagination",
+      clickable: true,
+    },
+  });
+  
 });

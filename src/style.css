@@ -278,6 +278,18 @@
   }
 }
 
+@layer base {
+  .courses-section {
+    /* linear gradient + image */
+    background-image:
+      linear-gradient(90deg, #880920 0%, rgba(136, 9, 32, 0) 67%),
+      url("/src/images/banner-slider-bg.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
 
 @layer components {
   /* Card wrapper */
@@ -297,5 +309,12 @@
     @apply text-gray-700 text-base leading-relaxed mb-5 text-center;
   }
 
+  .swiper {
+    @apply w-full h-[400px];
+  }
+
+  .swiper-slide .course-card{
+    width: 100% !important;
+  }
 
 }

@@ -1,0 +1,29 @@
+## Project coding rules for Cursor
+
+- **Languages & stack**
+  - Primary stack: plain `HTML`, `TailwindCSS` (via `src/style.css` / `output.css`), and vanilla `JavaScript` in `src/main.js`.
+  - Prefer **Tailwind utilities** or `@apply` in `src/style.css` instead of writing raw CSS properties when possible.
+
+- **HTML structure**
+  - Keep semantic sections (`header`, `main`, `section`, `footer`) and reuse existing section patterns (like `sec-title`, `container`, etc.).
+  - When adding new sections, follow existing indentation and class naming conventions (use kebab-case, e.g. `courses-section`).
+  - Avoid inline styles; move styling into Tailwind classes or component utilities.
+
+- **CSS / Tailwind**
+  - Add shared styles inside the existing `@layer components` or `@layer base` blocks in `src/style.css`.
+  - Use `@apply` with Tailwind utility classes instead of custom declarations whenever possible.
+  - Keep custom colors aligned with theme variables defined in `@theme` (e.g. `--color-primary`, `--color-sc`).
+
+- **JavaScript**
+  - Put all interactive behavior in `src/main.js`.
+  - Use plain JS (no extra frameworks) unless explicitly introduced later.
+  - Prefer small, reusable functions and avoid polluting the global scope.
+
+- **Assets**
+  - Place images under `src/images/` and reference them with relative URLs starting from project root (e.g. `/src/images/...`).
+
+- **General**
+  - Keep code formatted consistently; follow existing spacing and indentation.
+  - Before large refactors, preserve current behavior; make visual changes incrementally.
+
+
