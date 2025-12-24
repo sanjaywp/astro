@@ -22,9 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const decrementButton = document.getElementById("decrementButton");
   const incrementButton = document.getElementById("incrementButton");
   const quantityDisplay = document.getElementById("quantityDisplay");
-  const searchInput = document.getElementById("searchInput");
-  const faqs = document.querySelectorAll(".th-faqs details");
-  const faqContainer = document.querySelector(".th-faqs");
+
 
   let svg1 =
     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.333 12.667A5.333 5.333 0 1 0 7.333 2a5.333 5.333 0 0 0 0 10.667ZM14 14l-2.9-2.9" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
@@ -41,48 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function enableScroll() {
     document.body.classList.remove("overflow-hidden");
   }
-
-  // Search Input
-  searchInput?.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().trim();
-    let found = false;
-
-    faqs.forEach((faq) => {
-      const text = faq.textContent.toLowerCase();
-      const summary = faq.querySelector("summary");
-      const content = faq.querySelector("div");
-
-      if (text.includes(query)) {
-        faq.style.display = "";
-        found = true;
-
-        const highlight = (element) => {
-          element.innerHTML = element.textContent.replace(
-            new RegExp(`(${query})`, "gi"),
-            "<mark>$1</mark>"
-          );
-        };
-        highlight(summary);
-        highlight(content);
-      } else {
-        faq.style.display = "none";
-      }
-    });
-
-    let noMatchMessage = document.getElementById("noMatchMessage");
-    if (!found) {
-      if (!noMatchMessage) {
-        noMatchMessage = document.createElement("p");
-        noMatchMessage.id = "noMatchMessage";
-        noMatchMessage.textContent = "No matching data found";
-        noMatchMessage.style.color = "red";
-        noMatchMessage.style.textAlign = "center";
-        faqContainer?.appendChild(noMatchMessage);
-      }
-    } else {
-      noMatchMessage?.remove();
-    }
-  });
 
   // Sticky Header
   header &&
@@ -121,131 +77,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Quantity Increment/Decrement
-  decrementButton?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (quantity > 0) {
-      quantity--;
-      quantityDisplay.textContent = quantity;
-    }
-  });
 
-  incrementButton?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    quantity++;
-    quantityDisplay.textContent = quantity;
-  });
 
-  // Cart Panel
-  if (cartPanel && cartBackdrop && cartSlide && openCartBtns.length && closeCartBtn) {
-    function openCart() {
-      disableScroll();
-      cartPanel.classList.remove("hidden");
-      requestAnimationFrame(() => {
-        cartBackdrop.classList.replace("opacity-0", "opacity-100");
-        cartSlide.classList.replace("translate-x-full", "translate-x-0");
-      });
-    }
-
-    function closeCart() {
-      cartBackdrop.classList.replace("opacity-100", "opacity-0");
-      cartSlide.classList.replace("translate-x-0", "translate-x-full");
-      cartSlide.addEventListener(
-        "transitionend",
-        () => cartPanel.classList.add("hidden"),
-        { once: true }
-      );
-      enableScroll();
-    }
-
-    openCartBtns.forEach((btn) => btn.addEventListener("click", openCart));
-    closeCartBtn.addEventListener("click", closeCart);
-  }
-
-  // Mobile Search Form
-  searchIcon?.addEventListener("click", function () {
-    searchIcon.innerHTML = isSvg1 ? svg2 : svg1;
-    isSvg1 = !isSvg1;
-    searchForm?.classList.toggle("search-bar-show");
-  });
-
-  // Mobile Navigation
-  if (toggleslideBtn && cancelBtn && headerUl) {
-    function toggleButtons() {
-      const backDrop = document.querySelector(".back-drop");
-      const isVisible = headerUl.classList.toggle("show-ul");
-
-      if (isVisible) {
-        const newBackDrop = document.createElement("div");
-        header.appendChild(newBackDrop);
-        newBackDrop.classList.add("back-drop");
-        disableScroll();
-
-        newBackDrop.addEventListener("click", function () {
-          headerUl.classList.remove("show-ul");
-          newBackDrop.remove();
-          enableScroll();
-        });
-      } else {
-        backDrop?.remove();
-        enableScroll();
-      }
-    }
-
-    toggleslideBtn.addEventListener("click", toggleButtons);
-    cancelBtn.addEventListener("click", toggleButtons);
-  }
-
-  // Navigation Dropdowns
-  navDropdowns.forEach((parentDropdown) => {
-    parentDropdown.addEventListener("click", function () {
-      this.classList.toggle("showMenu");
-    });
-
-    const subDropdowns = parentDropdown.querySelectorAll(".th-dropdown ul");
-    subDropdowns.forEach((subDropdown) => {
-      subDropdown.addEventListener("click", (event) =>
-        event.stopPropagation()
-      );
-    });
-  });
-
-  document.addEventListener("click", (e) => {
-    navDropdowns.forEach((dropdown) => {
-      if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove("showMenu");
-      }
-    });
-  });
-
-  // Scroll to Top
-  mybutton &&
-    window.addEventListener("scroll", function () {
-      mybutton.classList.toggle(
-        "active",
-        document.body.scrollTop > 20 || document.documentElement.scrollTop > 20
-      );
-    });
-
-  mybutton?.addEventListener("click", function () {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  });
-
-  // Modal
-  openModalBtn?.addEventListener("click", () =>
-    modal?.classList.remove("hidden")
-  );
-  closeModalBtn?.addEventListener("click", () =>
-    modal?.classList.add("hidden")
-  );
-
-  // Accordion
-  summaryElements.forEach((summary, index) => {
-    summary.addEventListener("click", () => {
-      detailsElements.forEach((details, i) => {
-        if (i !== index) details.open = false;
-      });
+  // FAQ Accordion - Only for FAQ items
+  const faqItems = document.querySelectorAll(".faq-item");
+  const faqSummaries = document.querySelectorAll(".faq-item summary");
+  
+  faqSummaries.forEach((summary, index) => {
+    summary.addEventListener("click", (e) => {
+      // Allow the default behavior (open/close) to happen
+      // Only close other FAQ items if needed (optional - remove if you want multiple open)
+      // faqItems.forEach((item, i) => {
+      //   if (i !== index && item !== summary.closest('.faq-item')) {
+      //     item.open = false;
+      //   }
+      // });
     });
   });
 
@@ -264,6 +110,43 @@ document.addEventListener("DOMContentLoaded", function () {
       clickable: true,     
     },
   });
+
+
+  //  Swiper (testimonials) 
+  const testimonialsSwiper = new Swiper('.testimonials-slider', {
+    grabCursor: true,
+    centeredSlides: true,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      576: { slidesPerView: 1, spaceBetween: 30 },
+      768: { slidesPerView: 2, spaceBetween: 30 },
+      992: { slidesPerView: 4, spaceBetween: 30 },
+    },
+  });
+
+  //  Swiper (testimonials) 
+  const youtubeSwiper = new Swiper('.youtube-slider', {
+    loop: true,
+    grabCursor: true,
+    draggable: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    }, 
+    breakpoints: {  
+      768: { slidesPerView: 1, spaceBetween: 30 },
+      992: { slidesPerView: 2, spaceBetween: 30 },
+    },
+  });
+
 
   // Tab Component Functionality
   function initTabComponent(component) {

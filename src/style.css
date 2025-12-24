@@ -254,24 +254,25 @@
     @apply mb-1 text-sm font-semibold tracking-wide text-primary;
   }
   /* Dynamic Headings */
-  .sec-title h1 {
-    @apply text-5xl font-head font-bold mb-3;
+  .sec-title h1 , .h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-head font-bold mb-3;
   }
-  .sec-title h2 {
-    @apply text-4xl font-head font-bold mb-3;
+  .sec-title h2 , .h2 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-head font-bold mb-3;
   }
-  .sec-title h3 {
-    @apply text-3xl font-head font-bold mb-3;
+  .sec-title h3 , .h3 {
+    @apply text-xl md:text-2xl lg:text-3xl font-head font-bold mb-3;
   }
-  .sec-title h4 {
-    @apply text-2xl font-head font-bold mb-3;
+  .sec-title h4 , .h4 {
+    @apply text-lg md:text-xl lg:text-2xl font-head font-bold mb-3;
   }
-  .sec-title h5 {
-    @apply text-xl font-head font-bold mb-3;
+  .sec-title h5 , .h5 {
+    @apply text-lg md:text-lg lg:text-xl font-head font-bold mb-3;
   }
-  .sec-title h6 {
-    @apply text-lg font-head font-bold mb-3;
+  .sec-title h6 , .h6 {
+    @apply text-base md:text-base lg:text-lg font-head font-bold mb-3;
   }
+
   /* Description – no class needed */
   .sec-title p {
     @apply text-base leading-relaxed text-gray-600;
@@ -369,16 +370,60 @@
     height:400px;
     background-color: white;
     z-index: 1;
-    pointer-events: none;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    pointer-events: none;   
   }
   .palm-reading-section::before{
     top: 0;
     rotate: 180deg;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   }
   .palm-reading-section::after{
     bottom: -1px;
     rotate: 0deg;
     clip-path: polygon(50% 20%, 0% 100%, 100% 100%);
   }
+
+
+  @media screen and (max-width: 768px) {
+    .palm-reading-section::before,
+    .palm-reading-section::after {
+      display: none;
+    }
+    .courses-section :is(.sec-title, .sec-subtitle, .sec-title p),
+    .palm-reading-section :is(.sec-title, .sec-subtitle, .sec-title p){
+      color: white !important;
+    }
+  }
+
+  /* Swiper Navigation Buttons */
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply w-12 h-12 rounded-full bg-tertiary flex items-center justify-center;
+    @apply text-primary hover:bg-tertiary/90 transition-all duration-200;
+    @apply top-auto bottom-0;
+    @apply after:hidden;
+  }
+
+ .swiper-button-next svg,.swiper-button-prev svg{
+    height: unset !important;
+    fill: unset !important;
+    width: unset !important;
+  }
+
+  /* Footer Heading with Underline */
+  footer h3 {
+    @apply relative pb-3;
+  }
+
+  footer h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+
 }
