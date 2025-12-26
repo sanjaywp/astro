@@ -77,6 +77,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+      // Mobile Navigation
+      if (toggleslideBtn && cancelBtn && headerUl) {
+        function toggleButtons() {
+            const backDrop = document.querySelector(".back-drop");
+            const isVisible = headerUl.classList.toggle("show-ul");
+
+            if (isVisible) {
+                const newBackDrop = document.createElement("div");
+                header.appendChild(newBackDrop);
+                newBackDrop.classList.add("back-drop");
+                disableScroll();
+
+                newBackDrop.addEventListener("click", function () {
+                    headerUl.classList.remove("show-ul");
+                    newBackDrop.remove();
+                    enableScroll();
+                });
+            } else {
+                backDrop?.remove();
+                enableScroll();
+            }
+        }
+
+        toggleslideBtn.addEventListener("click", toggleButtons);
+        cancelBtn.addEventListener("click", toggleButtons);
+    }
+
 
 
   // FAQ Accordion - Only for FAQ items

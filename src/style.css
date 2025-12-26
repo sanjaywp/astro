@@ -281,15 +281,11 @@
 
 @layer base {
   .courses-section {
-    /* linear gradient + image */
-    background-image:
-      linear-gradient(90deg, #880920 0%, rgba(136, 9, 32, 0) 67%),
-      url("/src/images/banner-slider-bg.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    @apply lg:bg-[linear-gradient(90deg,#880920_0%,rgba(136,9,32,0)_67%),url("/src/images/banner-slider-bg.svg")] lg:bg-no-repeat lg:bg-cover lg:bg-center;
   }
 }
+
+
 
 
 @layer components {
@@ -311,10 +307,7 @@
   }
 
   
-  .writing-vertical {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-  }
+
 
 
   .swiper {
@@ -325,16 +318,48 @@
     gap: 30px;
   }
 
-  .courses-section .swiper-pagination-vertical.swiper-pagination-bullets, .courses-section .swiper-vertical>.swiper-pagination-bullets {
-   
-  right:unset !important;
-    bottom: 24px !important;
-    top: unset !important;
-    transform: translate3d(0,0,0) !important;
+  /* .courses-section .swiper-pagination-vertical.swiper-pagination-bullets, .courses-section .swiper-vertical>.swiper-pagination-bullets { 
+
+    top: 52% !important;
+    transform: translate3d(0, 0, 0) !important;
+    rotate: -90deg;
+    right: unset !important;
+    left: 70px !important;    
+  } */
+  @media screen and (max-width: 600px) {
+    .courses-section .swiper-pagination-vertical.swiper-pagination-bullets, .courses-section .swiper-vertical>.swiper-pagination-bullets { 
+
+      top: 52% !important;
+      transform: translate3d(0, 0, 0) !important;
+      rotate: -90deg;
+      right: unset !important;
+      left: 70px !important;    
+    }
+
+
   }
-  .courses-section .swiper-pagination-bullet-active {
-    @apply !bg-primary w-2 h-2;
+
+  @media screen and (max-width: 600px) {
+    .courses-section{
+      @apply bg-[#880920];
+    }
   }
+
+  @media screen and (min-width: 600px) {
+    .writing-vertical {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+    .courses-section .swiper-pagination-vertical.swiper-pagination-bullets, .courses-section .swiper-vertical>.swiper-pagination-bullets {
+      right:unset !important;
+      bottom: 24px !important;
+      top: unset !important;
+      transform: translate3d(0,0,0) !important;
+      rotate: 0deg;
+    }
+  }
+
+
 
   /* Tab Component Styles */
   .tab-content {
