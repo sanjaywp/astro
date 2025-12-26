@@ -540,7 +540,7 @@
 
                         <!-- RIGHT SIDEBAR STATS (2 cols) -->
                         <div
-                            class="col-span-full lg:col-span-2 bg-primary text-white flex lg:flex-col items-center justify-center gap-[80px] py-10 relative h-full">
+                            class="overflow-hidden lg:col-span-2 bg-primary text-white flex lg:flex-col items-center justify-center  gap-[20px] lg:gap-[80px] py-10 relative h-full">
                             <!-- Top angled corner -->
                             <!-- <div class="absolute -top-3 right-0 w-6 h-6 bg-black rotate-45"></div> -->
 
@@ -571,7 +571,7 @@
                                 </div>
                             </div>
                             <!-- Stat 1 -->
-                            <div class="relative flex flex-col items-center text-center">
+                            <div class="hidden  relative lg:flex flex-col items-center text-center">
                                 <!-- Background Image -->
                                 <svg class="absolute -top-[60px] m-auto h-64 w-64 opacity-100 z-9" width="183"
                                     height="183" viewBox="0 0 183 183" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -634,7 +634,7 @@
                     <div
                         class="order-2 lg:order-1 col-span-full lg:col-span-5 courses bg-white border-4 border-solid border-sc rounded-2xl md:p-6 p-4 flex flex-col md:flex-row gap-6 z-10">
                         <div class="flex md:flex-col md:items-center md:justify-between pb-3 md:pb-0">
-                            <div class="writing-vertical font-head font-bold uppercase md:rotate-180">
+                            <div class="h3 mb-0 writing-vertical font-head font-bold uppercase md:rotate-180">
                                 OUR TOP COURSES
                             </div>
                             <div class="swiper-pagination"></div>
@@ -819,7 +819,7 @@
                 <div
                     class="grid grid-cols-12 bg-[#FFF0E2] rounded-xl overflow-hidden shadow-md relative z-10 lg:-mt-20">
                     <div class="col-span-full lg:col-span-8 p-8">
-                        <div class="h3 font-head font-bold mb-4 text-black">Get in Touch </div>
+                        <div class="h3 font-head font-bold mb-4 text-black lg:text-start text-center">Get in Touch </div>
                         <form class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div class="space-y-4">
                                 <input type="text"
@@ -1436,32 +1436,31 @@
                             Ready to align your life with the stars? Connect with us today for personalized astrological
                             guidance crafted to illuminate your path.
                         </p>
-                        <div class="flex flex-col md:flex-row md:items-center lg:justify-center gap-4">
-                            <a href="#" class="group btn-primary bg-white border-2 border-sc">
-                                <svg class="btn-icon group-hover:-translate-x-42" width="32" height="32"
-                                    viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="#1c4d2f"
-                                        d="M16 0a16 16 0 0 1 16 16 16 16 0 0 1-16 16A16 16 0 0 1 0 16 16 16 0 0 1 16 0" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M9.49 15.765a6.666 6.666 0 1 1 3.105 5.636.78.78 0 0 0-.645-.088l-2.258.674.85-1.99a.78.78 0 0 0-.055-.722 6.64 6.64 0 0 1-.998-3.51m6.668-8.236a8.235 8.235 0 0 0-7.212 12.214l-1.353 3.165a.784.784 0 0 0 .946 1.06l3.529-1.053a8.235 8.235 0 1 0 4.089-15.386m1.798 9.947-1.031.726a7.3 7.3 0 0 1-1.552-1.194 8 8 0 0 1-1.273-1.658l.655-.555a.78.78 0 0 0 .185-.967l-.835-1.569a.784.784 0 0 0-1.208-.222l-.248.216c-.595.519-.947 1.372-.655 2.236a9.45 9.45 0 0 0 2.27 3.628c1.421 1.422 2.867 1.982 3.712 2.2.68.176 1.325-.059 1.779-.429l.464-.378a.784.784 0 0 0-.094-1.282l-1.317-.784a.78.78 0 0 0-.853.033"
-                                        fill="#fff" />
-                                </svg>
-                                <span class="btn-text text-[#000] group-hover:-translate-x-9">
-                                    Chat with Astrologer
-                                </span>
+                         <div class="flex flex-col md:flex-row md:items-center justify-center gap-4">
+                            <a href="#" class=" lg:flex group btn-primary bg-primary hover:bg-sc">
+                                <span class="btn-text group-hover:translate-x-9"> Registration for classes </span>
 
-                            </a>
-                            <a href="#" class="group btn-primary">
-                                <svg class="btn-icon group-hover:-translate-x-42" width="32" height="32"
-                                    viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="#fff"
-                                        d="M16 0a16 16 0 0 1 16 16 16 16 0 0 1-16 16A16 16 0 0 1 0 16 16 16 0 0 1 16 0" />
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="btn-icon group-hover:-translate-x-52">
+                                    <rect width="32" height="32" rx="16" fill="white" />
                                     <path
-                                        d="M18.1 10.564a4.22 4.22 0 0 1 3.328 3.322M18.1 7.2a7.6 7.6 0 0 1 4.521 2.168 7.57 7.57 0 0 1 2.177 4.51m-.842 6.711v2.522a1.68 1.68 0 0 1-1.145 1.6 1.7 1.7 0 0 1-.691.083 16.7 16.7 0 0 1-7.272-2.583 16.4 16.4 0 0 1-5.056-5.045 16.6 16.6 0 0 1-2.586-7.292 1.675 1.675 0 0 1 .998-1.689c.214-.094.445-.143.679-.144h2.528a1.685 1.685 0 0 1 1.685 1.447c.107.808.305 1.6.59 2.363a1.68 1.68 0 0 1-.379 1.775l-1.072 1.066a13.46 13.46 0 0 0 5.056 5.046l1.07-1.067a1.69 1.69 0 0 1 1.778-.378c.764.284 1.559.482 2.367.588a1.685 1.685 0 0 1 1.449 1.707"
-                                        stroke="#1c4d2f" stroke-width="1.882" stroke-linecap="round"
+                                        d="M11.832 11.3335H20.1654M20.1654 11.3335V19.6668M20.1654 11.3335L11.832 19.6668"
+                                        stroke="black" stroke-width="1.4" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
-                                <span class="btn-text group-hover:-translate-x-9">Talk to Astrologer </span>
+                            </a>
+
+                            <a href="#" class=" lg:flex group btn-primary">
+                                <span class="btn-text group-hover:translate-x-9"> View All Our Courses </span>
+
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" class="btn-icon group-hover:-translate-x-48">
+                                    <rect width="32" height="32" rx="16" fill="white" />
+                                    <path
+                                        d="M11.832 11.3335H20.1654M20.1654 11.3335V19.6668M20.1654 11.3335L11.832 19.6668"
+                                        stroke="black" stroke-width="1.4" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                             </a>
                         </div>
                     </div>

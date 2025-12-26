@@ -164,7 +164,7 @@
   }
 
   header .th-menu > ul > li > a {
-    @apply text-black hover:text-primary lg:text-white lg:hover:text-tertiary text-[15px] uppercase transition-colors duration-200;
+    @apply text-black hover:text-primary lg:text-white lg:hover:text-tertiary text-[15px] lg:uppercase transition-colors duration-200;
   }
 
   @media screen and (min-width: 1024px) {
