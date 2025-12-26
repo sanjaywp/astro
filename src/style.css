@@ -281,7 +281,10 @@
 
 @layer base {
   .courses-section {
-    @apply lg:bg-[linear-gradient(90deg,#880920_0%,rgba(136,9,32,0)_67%),url("/src/images/banner-slider-bg.svg")] lg:bg-no-repeat lg:bg-cover lg:bg-center;
+    @apply lg:h-84 lg:bg-[linear-gradient(90deg,#880920_0%,rgba(136,9,32,0)_67%),url("/src/images/banner-slider-bg.svg")] lg:bg-no-repeat lg:bg-cover lg:bg-center;
+   content: "";
+   display: flex;
+   align-items: center;
   }
 }
 
