@@ -421,7 +421,10 @@
     rotate: 0deg;
     clip-path: polygon(50% 20%, 0% 100%, 100% 100%);
   }
-
+  .swiper-pagination-bullet-active {
+    background: var(--color-primary) !important;
+    opacity: var(--swiper-pagination-bullet-opacity,1);
+}
 
   @media screen and (max-width: 768px) {
     .palm-reading-section::before,
