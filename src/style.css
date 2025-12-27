@@ -353,11 +353,6 @@
 
   }
 
-  @media screen and (max-width: 600px) {
-    .courses-section{
-      @apply bg-[#880920];
-    }
-  }
 
   @media screen and (min-width: 600px) {
     .writing-vertical {
@@ -431,10 +426,7 @@
     .palm-reading-section::after {
       display: none;
     }
-    .courses-section :is(.sec-title, .sec-subtitle, .sec-title p),
-    .palm-reading-section :is(.sec-title, .sec-subtitle, .sec-title p){
-      color: white !important;
-    }
+
   }
 
   /* Swiper Navigation Buttons */
