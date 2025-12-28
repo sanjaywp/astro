@@ -426,6 +426,9 @@
     .palm-reading-section::after {
       display: none;
     }
+     .palm-reading-section :is(.sec-title, .sec-subtitle, .sec-title p) {
+      color: white !important;
+    }
 
   }
 
