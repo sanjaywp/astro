@@ -203,7 +203,7 @@
             <div class="container">
                 <nav class="th-menu">
                     <ul>
-                        <li class="th-dropdown relative">
+                        <li class="th-dropdown">
                             <a class="" href="#" title="About Us">About Dr. Deobdut Choudharry </a>
                             <ul>
                                 <li>
@@ -211,14 +211,14 @@
                                         title="Bath">Bath</a>
                                 </li>
 
-                                <li class="th-dropdown relative">
+                                <li class="th-dropdown">
                                     <a href="#" class="text-black hover:text-primary" title="Places">Places</a>
                                     <ul>
                                         <li>
                                             <a class="text-black hover:text-primary"
                                                 href="https://tourhopers.com/places/bath/" title="Bath">Bath</a>
                                         </li>
-                                        <li class="th-dropdown relative">
+                                        <li class="th-dropdown">
                                             <a href="#" class="text-black hover:text-primary" title="Places">Places</a>
                                             <ul>
                                                 <li>
@@ -249,9 +249,9 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="th-dropdown">
+                        <li>
                             <a href="#" title="Our Services">Our Services</a>                           
-                            <div class="mega-menu">
+                            <!-- <div class="mega-menu">
                                 <div class="grid grid-cols-12 gap-4">
                                     <div class="col-span-12 lg:col-span-8">
                                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -317,7 +317,7 @@
                                         </div>
                                     </div>                                
                                 </div>
-                            </div>
+                            </div> -->
                         </li>
                         <li>
                             <a class="" href="#" title="About Us">Astrology Courses </a>
@@ -654,7 +654,7 @@
                             <!-- Stat 1 -->
                             <div class="relative flex flex-col items-center text-center">
                                 <!-- Background Image -->
-                                <svg class="absolute -top-[50px] lg:-top-[60px] m-auto w-40 h-40 lg:h-64 lg:w-64 opacity-100 z-9"
+                                <svg class="absolute -top-[50px] lg:-top-[60px]  m-auto w-40 h-40 lg:h-64 lg:w-64 opacity-100 z-9"
                                     width="183" height="183" viewBox="0 0 183 183" fill="none"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <rect width="182.277" height="182.277" fill="url(#pattern0_96_166)" />
@@ -927,7 +927,7 @@
                     <div class="col-span-full lg:col-span-8 p-8">
                         <div class="h3 font-head font-bold mb-4 text-black lg:text-start text-center">Get in Touch
                         </div>
-                        <form class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <form class="grid grid-cols-1 md:grid-cols-2 gap-3 th-form">
                             <div class="space-y-4">
                                 <input type="text"
                                     class="w-full border border-gray-300 rounded px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F4E03D]"
@@ -940,16 +940,12 @@
                                     placeholder="Your Phone Number" />
                             </div>
                             <div class="space-y-4">
-                                <textarea
-                                    class="w-full border border-gray-300 rounded px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-[#F4E03D]"
-                                    placeholder="Share Your Concern Here.." rows="4"></textarea>
-                                <button type="submit"
-                                    class="w-full text-base text-center group px-5 text-black font-medium bg-tertiary rounded-full flex items-center justify-center lg:gap-2 py-2.5 hover:bg-primary hover:text-white transition-all duration-200 ease-in-out">
+                                <textarea placeholder="Share Your Concern Here.." rows="4"></textarea>
+                                <button type="submit">
                                     <span class="text-base">SHARE NOW!</span>
                                     <span>
                                         <svg width="20" height="20" viewBox="0 0 36 36"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            class="transition-all duration-200 ease-in-out text-black group-hover:text-white"
                                             transform="rotate(90)">
                                             <path
                                                 d="M27.66 15.61 18 6l-9.66 9.61A1 1 0 1 0 9.75 17L17 9.81v19.13a1 1 0 1 0 2 0V9.81L26.25 17a1 1 0 0 0 1.41-1.42Z"
@@ -2531,12 +2527,10 @@
 
     <footer class="bg-[#1a1a1a] text-white lg:mt-[120px] mt-6 lg:pt-4 pt-3">
 
-
-        <div
-            class="lg:-mt-[75px] bg-tertiary rounded-r-xl p-5 sec-title m-0 flex-col gap-4 flex lg:flex-row item-start lg:justify-between max-w-9/10 w-full">
+        <div class="lg:-mt-[75px] bg-tertiary rounded-r-xl p-5 sec-title m-0 flex-col gap-4 flex lg:flex-row item-start lg:justify-between max-w-9/10 w-full">
 
             <div class="left">
-                <div class="h3 mb-2 text-primary">Unlock Your Destiny Today!</div>
+                <div class="h3 mb-2 text-black">Unlock Your Destiny Today!</div>
                 <p class="mb-0">Learn Palmistry & Numerology from Dr. Deobdut Choudharry.</p>
             </div>
             <div class="flex items-center gap-4">
@@ -2563,13 +2557,13 @@
                         <div class="col-span-full md:col-span-6 lg:col-span-4">
                             <h3 class="text-lg font-semibold mb-4">Services</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Palmistry
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Palmistry
                                         Consultations</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Numerology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Numerology
                                         Analysis</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Palmistry &
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Palmistry &
                                         Numerology</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Personal
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Personal
                                         Life
                                         Guidance</a></li>
                             </ul>
@@ -2578,14 +2572,14 @@
                         <div class="col-span-full md:col-span-6 lg:col-span-4">
                             <h3 class="text-lg font-semibold mb-4">Shop</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Palmistry
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Palmistry
                                         Course</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Numerology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Numerology
                                         Course</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Advanced
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Advanced
                                         Occult
                                         Science Programs</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Live & Demo
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Live & Demo
                                         Classes</a></li>
                             </ul>
                         </div>
@@ -2593,13 +2587,13 @@
                         <div class="col-span-full md:col-span-6 lg:col-span-4">
                             <h3 class="text-lg font-semibold mb-4">About Us</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Dr. Deobdut
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Dr. Deobdut
                                         Choudharry</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Blog</a>
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Blog</a>
                                 </li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shop</a>
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Shop</a>
                                 </li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Ask
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Ask
                                         Question</a></li>
                             </ul>
                         </div>
@@ -2607,18 +2601,18 @@
                         <div class="col-span-full md:col-span-6 lg:col-span-4">
                             <h3 class="text-lg font-semibold mb-4">Calculator</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Birth Chart
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Birth Chart
                                         /
                                         Kundli Calculator</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Rashi
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Rashi
                                         Calculator</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Sun Sign
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Sun Sign
                                         Calculator</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Rising Sign
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Rising Sign
                                         Calculator</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Nakshatra
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Nakshatra
                                         Calculator</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Dasha /
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Dasha /
                                         Mahadasha Calculator</a></li>
                             </ul>
                         </div>
@@ -2626,34 +2620,34 @@
                         <div class="col-span-full lg:col-span-8">
                             <h3 class="text-lg font-semibold mb-4">Locations</h3>
                             <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Nodia</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Gurugram</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
-                                <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Astrology
+                                <li><a href="#" class="text-[15px] text-gray-300 hover:text-white transition-colors">Astrology
                                         in
                                         Delhi</a></li>
                             </ul>
@@ -2835,7 +2829,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="bg-[#2a2a2a] rounded-lg p-6">
+                    <div class="bg-[#2a2a2a] rounded-lg p-6 border border-color-[#C9C9C980] mb-4">
                         <div class="h4">Join our Newsletters Today!</div>
                         <form class="flex flex-col gap-3">
                             <input type="email" placeholder="Enter Email I'd"
@@ -2857,7 +2851,8 @@
                     </div>
                 </div>
             </div>
-            <div class=" mt-4 lg:mt-0 text-gray-400 text-sm text-center border-t border-t-[#454545] py-4">
+
+            <div class="mt-4 lg:mt-0 text-gray-400 text-sm text-center border-t border-t-[#454545] py-4">
                 Copyright © 2025 Design by Battersea Web Expert
             </div>
         </div>
