@@ -106,11 +106,15 @@
 
   /* Dropdown Styles */
   .th-dropdown {
+    position: relative;
     white-space: nowrap;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
     gap: 5px;
     transition: all 0.5s ease-in-out;
+    
   }
 
   .th-dropdown::after {
@@ -129,7 +133,7 @@
     display: none;
     position: absolute;
     left: 0px;
-    top: 35px;
+    top: 100%;
     z-index: 99;
     min-width: 100%;
     transition: all 0.5s ease-in-out;
@@ -139,12 +143,11 @@
   }
 
 
-  .mega-menu .mega-menu-submenu ul li a{
+  /* .mega-menu .mega-menu-submenu ul li a{
     color: #000 !important;
   }
 
 
-  /* Regular Dropdown Styles - will be overridden in desktop media query */
   .th-dropdown:not(.mega-menu) > ul {
     pointer-events: none;
     visibility: hidden;
@@ -152,7 +155,6 @@
     display: none;
   }
 
-  /* Mega Menu Styles */
   .th-dropdown > .mega-menu {
     pointer-events: none;
     visibility: hidden;
@@ -184,7 +186,7 @@ display: block;
     border: none;
     padding: 0;
     background: transparent;
-  }
+  } */
 
   .th-dropdown ul .th-dropdown ul {
   margin-left: 10px;
@@ -209,13 +211,7 @@ display: block;
     display: flex;
     align-items: center;
   }
-  .th-dropdown.showMenu{
-    flex-direction: column;
-    align-items: unset;
-
-  }
-
-  
+ 
 
   /* Desktop Dropdown Styles */
   @media screen and (min-width: 1024px) {
@@ -237,7 +233,7 @@ display: block;
     }
 
     .th-dropdown ul .th-dropdown ul {
-      left: calc(100% + 20px);
+      left: calc(100% + 5px);
       position: absolute;
       top: 10px;
     }
@@ -246,8 +242,7 @@ display: block;
       filter: brightness(0) invert(1);
     }
 
-    /* Mega Menu Desktop Styles */
-    .th-dropdown > .mega-menu {
+    /* .th-dropdown > .mega-menu {
       width: calc(100vw - 80px);
       max-width: 1200px;
     }
@@ -256,7 +251,6 @@ display: block;
       width: 100%;
     }
 
-    /* Mega Menu Column Styles */
     .mega-menu-column {
       display: flex;
       flex-direction: column;
@@ -282,10 +276,9 @@ display: block;
       @apply text-sm text-gray-700 hover:text-primary transition-colors duration-200;
       display: block;
       padding: 6px 0;
-    }
+    } */
 
-    /* Promotional Column */
-    .mega-menu-promo {
+    /* .mega-menu-promo {
       background: linear-gradient(to bottom right, rgba(128, 0, 32, 0.1), rgba(236, 215, 31, 0.1));
       border-radius: 8px;
       padding: 24px;
@@ -312,7 +305,7 @@ display: block;
     .mega-menu-promo-btn {
       @apply inline-block px-8 py-3 bg-primary text-white rounded-full text-sm font-medium hover:bg-sc transition-colors duration-200;
       display: inline-block;
-    }
+    } */
   }
 
   /* Mobile Navigation Styles */
@@ -370,7 +363,7 @@ display: block;
     }
 
     /* Mega Menu Mobile Styles */
-    .th-dropdown > .mega-menu {
+    /* .th-dropdown > .mega-menu {
       position: static !important;
       width: 100% !important;
       max-width: 100% !important;
@@ -418,7 +411,7 @@ display: block;
 
     .mega-menu-promo-discount {
       @apply text-4xl font-bold text-primary mb-4;
-    }
+    } */
 
     .back-drop {
       @apply bg-black fixed w-screen h-screen opacity-50 z-2 inset-y-0;
@@ -631,6 +624,8 @@ display: block;
   }
 
   /* Footer Styles */
+
+ 
   footer h3 {
     @apply relative pb-3;
   }
@@ -648,6 +643,31 @@ display: block;
   /* FAQ Styles */
   .faq-item details[open] .faq-icon {
     transform: rotate(45deg);
+  }
+
+  .th-form input[type="text"],
+  .th-form input[type="email"],
+  .th-form input[type="tel"],
+  .th-form input[type="number"],
+  .th-form input[type="url"],
+  .th-form input[type="password"] {
+    @apply w-full border border-gray-300 rounded px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F4E03D];
+  }
+
+  .th-form textarea {
+    @apply w-full border border-gray-300 rounded px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-[#F4E03D];
+  }
+
+  .th-form button[type="submit"] {
+    @apply w-full text-base text-center px-5 text-black font-medium bg-tertiary rounded-full flex items-center justify-center lg:gap-2 py-2.5 hover:bg-primary hover:text-white transition-all duration-200 ease-in-out;
+  }
+
+  .th-form button[type="submit"] svg {
+    @apply transition-all duration-200 ease-in-out text-black;
+  }
+
+  .th-form button[type="submit"]:hover svg {
+    @apply text-white;
   }
 
   .yoast-breadcrumbs {

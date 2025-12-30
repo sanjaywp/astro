@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const toggleslideBtn = document.querySelector(".th-menu-toggle-btn");
   const cancelBtn = document.querySelector(".cancel-btn");
   const headerUl = document.querySelector("header .th-menu ul");
-  const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
   const faqItems = document.querySelectorAll(".faq-item");
   const faqSummaries = document.querySelectorAll(".faq-item summary");
   const tabComponents = document.querySelectorAll("[data-tab-component]");
@@ -65,6 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // DROPDOWN TOGGLES
   // ============================================
   // Navigation Dropdowns
+
+  
   navDropdowns.forEach((parentDropdown) => {
     parentDropdown.addEventListener("click", function () {
       this.classList.toggle("showMenu");
