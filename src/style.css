@@ -649,7 +649,121 @@ display: block;
   .faq-item details[open] .faq-icon {
     transform: rotate(45deg);
   }
+
+  .yoast-breadcrumbs {
+    @apply flex justify-center items-center;
+  }
+  .yoast-breadcrumbs a {
+    @apply text-primary hover:underline;
+  }
+  .yoast-breadcrumbs .breadcrumb_last {
+    @apply text-black;
+  }
+  .yoast-breadcrumbs span {
+    @apply flex items-center gap-2;
+  }
+  .yoast-breadcrumbs span .mx-2 {
+    @apply text-gray-400;
+  }
+
+   
+  /* Page hero */
+  .page-hero {
+    @apply bg-tertiary/60 bg-center bg-no-repeat bg-cover py-4 lg:py-16 lg:mb-16 mb-6;
+  }
+  @media (min-width: 768px) {
+    .page-hero {
+      background-image: url('/src/images/page-hero.webp');
+      @apply bg-primary; /* Keep bg-primary as base in case image doesn't load; allows for seamless fallback */
+    }
+  }
+
+/* Product card */
+
+  .p-card {
+    @apply bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg;
+  }
+  .p-img {
+    @apply w-full h-48 overflow-hidden bg-gray-100;
+  }
+  .p-img img {
+    @apply w-full h-full object-cover;
+  }
+  .p-body {
+    @apply p-5 flex flex-col;
+  }
+  .p-meta {
+    @apply flex items-center justify-between mb-3;
+  }
+  .p-cat {
+    @apply text-primary hover:underline font-semibold text-sm;
+  }
+  .p-title {
+    @apply text-xl font-head font-bold text-black hover:text-primary mb-3 flex;
+  }
+  .p-rating-row {
+    @apply flex items-center mb-3;
+  }
+  .p-rating-stars {
+    @apply flex items-center;
+  }
+  .p-rating-val {
+    @apply text-sm ml-2;
+  }
+  .p-price-wrap {
+    @apply mb-6;
+  }
+  .p-price-row {
+    @apply flex items-baseline gap-2 mb-1;
+  }
+  .p-price {
+    @apply text-2xl font-bold text-black;
+  }
+  .p-per {
+    @apply text-gray-500 text-sm;
+  }
+  .p-discount-row {
+    @apply flex items-center gap-2;
+  }
+  .p-original {
+    @apply text-gray-500 line-through text-sm;
+  }
+  .p-discount {
+    @apply text-primary font-semibold text-sm;
+  }
+  .p-actions {
+    @apply flex gap-3;
+  }
+  .p-cart {
+    @apply w-full text-base text-center px-3 text-white bg-sc rounded-full flex items-center justify-center lg:gap-2 py-2.5 hover:bg-primary transition-all duration-200 ease-in-out;
+  }
+  .p-buy {
+    @apply w-full text-base text-center text-white bg-primary rounded-full flex items-center justify-center lg:gap-2 py-2.5 hover:bg-tertiary hover:text-black transition-all duration-200 ease-in-out;
+  }
+
+/* shop pagination */
+
+  .woocommerce-pagination {
+    @apply mt-10 flex justify-center;
+  }
+  .woocommerce-pagination .page-numbers {
+    @apply flex items-center gap-3;
+  }
+  .woocommerce-pagination .page-numbers.current {
+    @apply flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white text-base;
+  }
+  .woocommerce-pagination .page-numbers:not(.current) {
+    @apply flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-black text-base hover:bg-tertiary hover:text-black transition-colors duration-200;
+  }
+  .woocommerce-pagination .page-numbers.next {
+    @apply flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-black text-base hover:bg-tertiary hover:text-black transition-colors duration-200;
+  }
+  .woocommerce-pagination .page-numbers .text-xl {
+    @apply text-xl;
+  }
+
 }
+
 
 /* ===========================
   Utilities Layer
