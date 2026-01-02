@@ -55,17 +55,22 @@
     overflow-x: hidden;
   }
 
+  /* Break word  */
+  .word-break-all{
+    word-break: break-all;
+  }
+
   /* Header Styles */
   .th-home-page header {
     @apply bg-white transition-all shadow-none;
   }
 
   header {
-    @apply relative z-1 bg-white transition-all duration-300 ease-in-out shadow-sm;
+    @apply relative z-1 bg-white transition-all duration-300 ease-in-out;
   }
 
   header ul {
-    @apply flex items-center flex-wrap justify-between gap-[30px];
+    @apply flex items-center flex-wrap justify-between gap-[20px];
   }
 
   .sticky-header {
@@ -206,7 +211,7 @@ display: block;
 
   /* Courses Section */
   .courses-section {
-    @apply lg:h-84 lg:bg-[linear-gradient(90deg,#880920_0%,rgba(136,9,32,0)_67%),url("/src/images/banner-slider-bg.svg")] lg:bg-no-repeat lg:bg-cover lg:bg-center;
+    @apply lg:h-84 lg:bg-[linear-gradient(90deg,#880920_0%,rgba(136,9,32,0)_67%),url("./images/banner-slider-bg.svg")] lg:bg-no-repeat lg:bg-cover lg:bg-center;
     content: "";
     display: flex;
     align-items: center;
@@ -223,7 +228,7 @@ display: block;
     }
 
     .th-dropdown ul {
-      width: 300px;
+      width: 350px;
       background: #fff;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       border-radius: 8px;
@@ -354,6 +359,7 @@ display: block;
     .th-menu ul li.th-dropdown ul li {
       width: 100% !important;
       float: none;
+      white-space: normal;
     }
 
     header ul li.showMenu > ul,
@@ -689,8 +695,8 @@ display: block;
   }
   @media (min-width: 768px) {
     .page-hero {
-      background-image: url('/src/images/page-hero.webp');
-      @apply bg-primary; /* Keep bg-primary as base in case image doesn't load; allows for seamless fallback */
+      background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/page-hero-1.webp');
+      @apply bg-tertiary/60;
     }
   }
 
