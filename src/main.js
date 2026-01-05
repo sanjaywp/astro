@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================
   // Navigation Dropdowns
 
-  
   navDropdowns.forEach((parentDropdown) => {
     parentDropdown.addEventListener("click", function () {
       this.classList.toggle("showMenu");
@@ -73,9 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const subDropdowns = parentDropdown.querySelectorAll(".th-dropdown ul");
     subDropdowns.forEach((subDropdown) => {
-      subDropdown.addEventListener("click", (event) =>
-        event.stopPropagation()
-      );
+      subDropdown.addEventListener("click", (event) => event.stopPropagation());
     });
   });
 
@@ -197,7 +194,11 @@ document.addEventListener("DOMContentLoaded", function () {
           const isActive = btn.getAttribute("data-tab") === targetTab;
           btn.setAttribute("aria-selected", isActive);
           if (isActive) {
-            btn.classList.remove("bg-white", "text-gray-700", "hover:bg-gray-100");
+            btn.classList.remove(
+              "bg-white",
+              "text-gray-700",
+              "hover:bg-gray-100"
+            );
             btn.classList.add("bg-primary", "text-white");
           } else {
             btn.classList.remove("bg-primary", "text-white");
@@ -224,4 +225,37 @@ document.addEventListener("DOMContentLoaded", function () {
   tabComponents.forEach((component) => {
     initTabComponent(component);
   });
+
+  // ============================================
+  // GALLERY LIGHTBOX (Using Lightbox2 CDN)
+  // ============================================
+
+  // Initialize Lightbox2 - wait for jQuery and Lightbox2 to be ready
+  function initLightbox2() {
+    if (typeof jQuery !== 'undefined' && typeof lightbox !== 'undefined' && lightbox && typeof lightbox.option === 'function') {
+      lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        'fadeDuration': 300,
+        'imageFadeDuration': 300,
+        'showImageNumberLabel': true,
+        'alwaysShowNavOnTouchDevices': true,
+        'fitImagesInViewport': true,
+        'maxWidth': 1200,
+        'maxHeight': 800
+      });
+    } else {
+      // Retry if dependencies aren't ready yet
+      setTimeout(initLightbox2, 50);
+    }
+  }
+
+  // Initialize after DOM and scripts are ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initLightbox2, 100);
+    });
+  } else {
+    setTimeout(initLightbox2, 100);
+  }
 });
