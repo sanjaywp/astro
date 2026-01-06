@@ -1,37 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // DOM Elements
+  // ============================================
+  // DOM ELEMENTS
+  // ============================================
   const header = document.querySelector("header");
   const toggleslideBtn = document.querySelector(".th-menu-toggle-btn");
   const cancelBtn = document.querySelector(".cancel-btn");
   const headerUl = document.querySelector("header .th-menu ul");
-  const searchIcon = document.querySelector(".mob-search-btn");
-  const searchForm = document.querySelector(".th-menu-search-form");
-  const mybutton = document.getElementById("scroll_to_top");
-  const cartPanel = document.getElementById("cart-panel");
-  const cartBackdrop = document.getElementById("cart-backdrop");
-  const cartSlide = document.getElementById("cart-slide");
-  const openCartBtns = document.querySelectorAll(".open-cart");
-  const closeCartBtn = document.getElementById("close-cart");
+  const faqItems = document.querySelectorAll(".faq-item");
+  const faqSummaries = document.querySelectorAll(".faq-item summary");
+  const tabComponents = document.querySelectorAll("[data-tab-component]");
   const navDropdowns = document.querySelectorAll(".th-dropdown");
-  const modal = document.getElementById("modal");
-  const openModalBtn = document.getElementById("openModalBtn");
-  const closeModalBtn = document.getElementById("closeModalBtn");
-  const detailsElements = document.querySelectorAll("details");
-  const summaryElements = document.querySelectorAll("summary");
-  const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
-  const decrementButton = document.getElementById("decrementButton");
-  const incrementButton = document.getElementById("incrementButton");
-  const quantityDisplay = document.getElementById("quantityDisplay");
 
-
-  let svg1 =
-    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7.333 12.667A5.333 5.333 0 1 0 7.333 2a5.333 5.333 0 0 0 0 10.667ZM14 14l-2.9-2.9" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
-  let svg2 =
-    '<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>';
-  let isSvg1 = true;
-  let quantity = 0;
-
-  // Utility Functions
+  // ============================================
+  // UTILITY FUNCTIONS
+  // ============================================
   function disableScroll() {
     document.body.classList.add("overflow-hidden");
   }
@@ -40,91 +22,109 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.remove("overflow-hidden");
   }
 
-  // Sticky Header
-  header &&
+  // ============================================
+  // STICKY HEADER
+  // ============================================
+  if (header) {
     window.addEventListener("scroll", function () {
       header.classList.toggle("sticky-header", window.scrollY > 0);
     });
+  }
 
-  // Dropdown Toggles
-  dropdownToggles.forEach((toggle) => {
-    const menuId = toggle.getAttribute("aria-labelledby") || toggle.id;
-    const dropdownMenu = document.querySelector(
-      `[aria-labelledby="${menuId}"]`
-    );
+  // ============================================
+  // MOBILE NAVIGATION
+  // ============================================
+  if (toggleslideBtn && cancelBtn && headerUl) {
+    function toggleButtons() {
+      const backDrop = document.querySelector(".back-drop");
+      const isVisible = headerUl.classList.toggle("show-ul");
 
-    toggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      document.querySelectorAll(".dropdown-menu").forEach((menu) => {
-        if (menu !== dropdownMenu) {
-          menu.classList.add("hidden");
-        }
-      });
-      dropdownMenu?.classList.toggle("hidden");
+      if (isVisible) {
+        const newBackDrop = document.createElement("div");
+        header.appendChild(newBackDrop);
+        newBackDrop.classList.add("back-drop");
+        disableScroll();
+
+        newBackDrop.addEventListener("click", function () {
+          headerUl.classList.remove("show-ul");
+          newBackDrop.remove();
+          enableScroll();
+        });
+      } else {
+        backDrop?.remove();
+        enableScroll();
+      }
+    }
+
+    toggleslideBtn.addEventListener("click", toggleButtons);
+    cancelBtn.addEventListener("click", toggleButtons);
+  }
+
+  // ============================================
+  // DROPDOWN TOGGLES
+  // ============================================
+  // Navigation Dropdowns
+
+  navDropdowns.forEach((parentDropdown) => {
+    parentDropdown.addEventListener("click", function () {
+      this.classList.toggle("showMenu");
+    });
+
+    const subDropdowns = parentDropdown.querySelectorAll(".th-dropdown ul");
+    subDropdowns.forEach((subDropdown) => {
+      subDropdown.addEventListener("click", (event) => event.stopPropagation());
     });
   });
 
-  document.addEventListener("click", (event) => {
-    if (
-      !event.target.closest(".dropdown-menu") &&
-      !event.target.closest(".dropdown-toggle") &&
-      event.target !== decrementButton &&
-      event.target !== incrementButton
-    ) {
-      document.querySelectorAll(".dropdown-menu").forEach((menu) => {
-        menu.classList.add("hidden");
-      });
-    }
+  document.addEventListener("click", (e) => {
+    navDropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("showMenu");
+      }
+    });
   });
 
-      // Mobile Navigation
-      if (toggleslideBtn && cancelBtn && headerUl) {
-        function toggleButtons() {
-            const backDrop = document.querySelector(".back-drop");
-            const isVisible = headerUl.classList.toggle("show-ul");
-
-            if (isVisible) {
-                const newBackDrop = document.createElement("div");
-                header.appendChild(newBackDrop);
-                newBackDrop.classList.add("back-drop");
-                disableScroll();
-
-                newBackDrop.addEventListener("click", function () {
-                    headerUl.classList.remove("show-ul");
-                    newBackDrop.remove();
-                    enableScroll();
-                });
-            } else {
-                backDrop?.remove();
-                enableScroll();
-            }
-        }
-
-        toggleslideBtn.addEventListener("click", toggleButtons);
-        cancelBtn.addEventListener("click", toggleButtons);
+  // ============================================
+  // FAQ ACCORDION
+  // ============================================
+  function updateFaqIcon(detailsElement) {
+    const icon = detailsElement.querySelector(".faq-icon");
+    const path = icon?.querySelector("path");
+    if (path) {
+      if (detailsElement.open) {
+        path.setAttribute("d", "M4 12h16");
+      } else {
+        path.setAttribute("d", "M12 4v16m8-8H4");
+      }
     }
+  }
 
+  // Initialize icons for all FAQ items
+  faqItems.forEach((item) => {
+    updateFaqIcon(item);
 
+    // Listen for toggle events
+    item.addEventListener("toggle", () => {
+      updateFaqIcon(item);
+    });
+  });
 
-  // FAQ Accordion - Only for FAQ items
-  const faqItems = document.querySelectorAll(".faq-item");
-  const faqSummaries = document.querySelectorAll(".faq-item summary");
-  
+  // Close other FAQ items when one is opened
   faqSummaries.forEach((summary, index) => {
     summary.addEventListener("click", (e) => {
-      // Allow the default behavior (open/close) to happen
-      // Only close other FAQ items if needed (optional - remove if you want multiple open)
-      // faqItems.forEach((item, i) => {
-      //   if (i !== index && item !== summary.closest('.faq-item')) {
-      //     item.open = false;
-      //   }
-      // });
+      faqItems.forEach((item, i) => {
+        if (i !== index && item !== summary.closest(".faq-item")) {
+          item.open = false;
+        }
+      });
     });
   });
 
-
-  // course slider
-  new Swiper(".courses-slider", {
+  // ============================================
+  // SWIPER SLIDERS
+  // ============================================
+  // Courses Slider
+  new Swiper(".courses-slider .swiper", {
     direction: "vertical",
     slidesPerView: 4,
     loop: true,
@@ -133,14 +133,13 @@ document.addEventListener("DOMContentLoaded", function () {
       disableOnInteraction: false,
     },
     pagination: {
-      el: ".swiper-pagination",
-      clickable: true,     
+      el: ".courses-slider .swiper-pagination",
+      clickable: true,
     },
   });
 
-
-  //  Swiper (testimonials) 
-  const testimonialsSwiper = new Swiper('.testimonials-slider', {
+  // Testimonials Slider
+  const testimonialsSwiper = new Swiper(".testimonials-slider", {
     grabCursor: true,
     centeredSlides: true,
     loop: true,
@@ -148,9 +147,9 @@ document.addEventListener("DOMContentLoaded", function () {
       delay: 5000,
       disableOnInteraction: false,
     },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+    pagination: {
+      el: ".testimonials-slider .swiper-pagination",
+      clickable: true,
     },
     breakpoints: {
       576: { slidesPerView: 1, spaceBetween: 30 },
@@ -159,53 +158,63 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
-  //  Swiper (testimonials) 
-  const youtubeSwiper = new Swiper('.youtube-slider', {
+  // YouTube Slider
+  const youtubeSwiper = new Swiper(".youtube-slider", {
     loop: true,
     grabCursor: true,
     draggable: true,
+    spaceBetween: 20,
     autoplay: {
       delay: 5000,
       disableOnInteraction: false,
-    }, 
-    breakpoints: {  
+    },
+    pagination: {
+      el: ".youtube-slider-pagination",
+      clickable: true,
+    },
+    breakpoints: {
       768: { slidesPerView: 1, spaceBetween: 30 },
       992: { slidesPerView: 2, spaceBetween: 30 },
     },
   });
 
-
-  // Tab Component Functionality
+  // ============================================
+  // TAB COMPONENT
+  // ============================================
   function initTabComponent(component) {
-    const tabButtons = component.querySelectorAll('.tab-btn');
-    const tabContents = component.querySelectorAll('.tab-content');
+    const tabButtons = component.querySelectorAll(".tab-btn");
+    const tabContents = component.querySelectorAll(".tab-content");
 
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const targetTab = button.getAttribute('data-tab');
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetTab = button.getAttribute("data-tab");
 
         // Update button states
-        tabButtons.forEach(btn => {
-          const isActive = btn.getAttribute('data-tab') === targetTab;
-          btn.setAttribute('aria-selected', isActive);
+        tabButtons.forEach((btn) => {
+          const isActive = btn.getAttribute("data-tab") === targetTab;
+          btn.setAttribute("aria-selected", isActive);
           if (isActive) {
-            btn.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-100');
-            btn.classList.add('bg-primary', 'text-white');
+            btn.classList.remove(
+              "bg-white",
+              "text-gray-700",
+              "hover:bg-gray-100"
+            );
+            btn.classList.add("bg-primary", "text-white");
           } else {
-            btn.classList.remove('bg-primary', 'text-white');
-            btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-gray-100');
+            btn.classList.remove("bg-primary", "text-white");
+            btn.classList.add("bg-white", "text-gray-700", "hover:bg-gray-100");
           }
         });
 
         // Update content visibility
-        tabContents.forEach(content => {
-          const contentTab = content.getAttribute('data-content');
+        tabContents.forEach((content) => {
+          const contentTab = content.getAttribute("data-content");
           if (contentTab === targetTab) {
-            content.classList.remove('hidden');
-            content.classList.add('active');
+            content.classList.remove("hidden");
+            content.classList.add("active");
           } else {
-            content.classList.add('hidden');
-            content.classList.remove('active');
+            content.classList.add("hidden");
+            content.classList.remove("active");
           }
         });
       });
@@ -213,10 +222,40 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Initialize all tab components on the page
-  const tabComponents = document.querySelectorAll('[data-tab-component]');
-  tabComponents.forEach(component => {
+  tabComponents.forEach((component) => {
     initTabComponent(component);
   });
 
-  
+  // ============================================
+  // GALLERY LIGHTBOX (Using Lightbox2 CDN)
+  // ============================================
+
+  // Initialize Lightbox2 - wait for jQuery and Lightbox2 to be ready
+  function initLightbox2() {
+    if (typeof jQuery !== 'undefined' && typeof lightbox !== 'undefined' && lightbox && typeof lightbox.option === 'function') {
+      lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        'fadeDuration': 300,
+        'imageFadeDuration': 300,
+        'showImageNumberLabel': true,
+        'alwaysShowNavOnTouchDevices': true,
+        'fitImagesInViewport': true,
+        'maxWidth': 1200,
+        'maxHeight': 800
+      });
+    } else {
+      // Retry if dependencies aren't ready yet
+      setTimeout(initLightbox2, 50);
+    }
+  }
+
+  // Initialize after DOM and scripts are ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initLightbox2, 100);
+    });
+  } else {
+    setTimeout(initLightbox2, 100);
+  }
 });
