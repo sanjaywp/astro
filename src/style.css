@@ -783,7 +783,6 @@ display: block;
   .woocommerce-pagination .page-numbers .text-xl {
     @apply text-xl;
   }
-
 }
 
 
@@ -823,3 +822,5 @@ display: block;
     @apply outline-none focus:outline focus:outline-none;
   }
 }
+
+
