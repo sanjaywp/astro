@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
             btn.classList.add("bg-primary", "text-white");
           } else {
             btn.classList.remove("bg-primary", "text-white");
-            btn.classList.add("bg-white", "text-gray-700", "hover:bg-gray-100");
+            btn.classList.add("bg-gray-200", "text-gray-700", "hover:bg-gray-100");
           }
         });
 
@@ -227,35 +227,67 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================================
-  // GALLERY LIGHTBOX (Using Lightbox2 CDN)
+  // STATS COUNTER COMPONENT
   // ============================================
+  function counter(element, start, end, duration, suffix = '') {
+    if (!element) return;
+    
+    let current = start;
+    let range = end - start;
+    let increment = end > start ? 1 : -1;
+    let step = Math.abs(Math.floor(duration / range));
+    
+    let timer = setInterval(function () {
+      current += increment;
+      element.textContent = current + suffix;
+      if (current == end) {
+        clearInterval(timer);
+      }
+    }, step);
+  }
 
-  // Initialize Lightbox2 - wait for jQuery and Lightbox2 to be ready
-  function initLightbox2() {
-    if (typeof jQuery !== 'undefined' && typeof lightbox !== 'undefined' && lightbox && typeof lightbox.option === 'function') {
-      lightbox.option({
-        'resizeDuration': 200,
-        'wrapAround': true,
-        'fadeDuration': 300,
-        'imageFadeDuration': 300,
-        'showImageNumberLabel': true,
-        'alwaysShowNavOnTouchDevices': true,
-        'fitImagesInViewport': true,
-        'maxWidth': 1200,
-        'maxHeight': 800
+  function initStatsCounter() {
+    const statsContainer = document.querySelector('.stats-counter-container');
+    if (!statsContainer) return;
+
+    const statElements = statsContainer.querySelectorAll('.counter-value');
+    if (statElements.length === 0) return;
+
+    // Extract target values and suffixes from each stat
+    const stats = Array.from(statElements).map((el) => {
+      const text = el.textContent.trim();
+      const match = text.match(/(\d+)(.*)/);
+      if (match) {
+        return {
+          element: el,
+          target: parseInt(match[1], 10),
+          suffix: match[2] || ''
+        };
+      }
+      return null;
+    }).filter(Boolean);
+
+    // Intersection Observer to trigger counters when stats come into view
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          stats.forEach((stat) => {
+            counter(stat.element, 0, stat.target, 2000, stat.suffix);
+          });
+          observer.unobserve(entry.target);
+        }
       });
-    } else {
-      // Retry if dependencies aren't ready yet
-      setTimeout(initLightbox2, 50);
-    }
+    }, observerOptions);
+
+    observer.observe(statsContainer);
   }
 
-  // Initialize after DOM and scripts are ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(initLightbox2, 100);
-    });
-  } else {
-    setTimeout(initLightbox2, 100);
-  }
+  // Initialize stats counter
+  initStatsCounter();
 });
