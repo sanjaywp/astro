@@ -293,9 +293,6 @@
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
-  .left-1 {
-    left: calc(var(--spacing) * 1);
-  }
   .left-1\/2 {
     left: calc(1/2 * 100%);
   }
@@ -356,14 +353,8 @@
   .m-2 {
     margin: calc(var(--spacing) * 2);
   }
-  .m-8 {
-    margin: calc(var(--spacing) * 8);
-  }
   .m-auto {
     margin: auto;
-  }
-  .mx-2 {
-    margin-inline: calc(var(--spacing) * 2);
   }
   .mx-auto {
     margin-inline: auto;
@@ -388,9 +379,6 @@
   }
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
-  }
-  .mt-8 {
-    margin-top: calc(var(--spacing) * 8);
   }
   .mt-10 {
     margin-top: calc(var(--spacing) * 10);
@@ -452,9 +440,6 @@
   .inline-block {
     display: inline-block;
   }
-  .table {
-    display: table;
-  }
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
@@ -502,9 +487,6 @@
   }
   .min-h-\[200px\] {
     min-height: 200px;
-  }
-  .w-1 {
-    width: calc(var(--spacing) * 1);
   }
   .w-1\/2 {
     width: calc(1/2 * 100%);
@@ -566,9 +548,6 @@
   .max-w-5xl {
     max-width: var(--container-5xl);
   }
-  .max-w-9 {
-    max-width: calc(var(--spacing) * 9);
-  }
   .max-w-9\/10 {
     max-width: calc(9/10 * 100%);
   }
@@ -587,24 +566,14 @@
   .flex-1 {
     flex: 1;
   }
-  .flex-shrink {
-    flex-shrink: 1;
+  .flex-shrink-0 {
+    flex-shrink: 0;
   }
   .shrink-0 {
     flex-shrink: 0;
   }
-  .flex-grow {
-    flex-grow: 1;
-  }
   .grow {
     flex-grow: 1;
-  }
-  .border-collapse {
-    border-collapse: collapse;
-  }
-  .-translate-x-1 {
-    --tw-translate-x: calc(var(--spacing) * -1);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .-translate-x-1\/2 {
     --tw-translate-x: calc(calc(1/2 * 100%) * -1);
@@ -833,6 +802,10 @@
     border-style: var(--tw-border-style);
     border-width: 0px;
   }
+  .border-1 {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
   .border-2 {
     border-style: var(--tw-border-style);
     border-width: 2px;
@@ -846,6 +819,10 @@
     border-width: 5px;
   }
   .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  .border-t-1 {
     border-top-style: var(--tw-border-style);
     border-top-width: 1px;
   }
@@ -964,6 +941,12 @@
   }
   .bg-white\/60 {
     background-color: color-mix(in oklab, #ffffff 60%, transparent);
+  }
+  .bg-\[url\(\'\.\/images\/tab-bg\.svg\'\)\] {
+    background-image: url('./images/tab-bg.svg');
+  }
+  .bg-\[url\(\'\.\/images\/yellow-banner\.svg\'\)\] {
+    background-image: url('./images/yellow-banner.svg');
   }
   .bg-\[url\(\'https\:\/\/astro\.batterseaconsultant\.com\/wp-content\/uploads\/2026\/01\/birth-chart-bg\.svg\'\)\] {
     background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/birth-chart-bg.svg');
@@ -1097,6 +1080,9 @@
   .pb-3 {
     padding-bottom: calc(var(--spacing) * 3);
   }
+  .pb-4 {
+    padding-bottom: calc(var(--spacing) * 4);
+  }
   .pb-5 {
     padding-bottom: calc(var(--spacing) * 5);
   }
@@ -1108,9 +1094,6 @@
   }
   .pb-12 {
     padding-bottom: calc(var(--spacing) * 12);
-  }
-  .pb-15 {
-    padding-bottom: calc(var(--spacing) * 15);
   }
   .pb-15\! {
     padding-bottom: calc(var(--spacing) * 15) !important;
@@ -1258,14 +1241,6 @@
   }
   .line-through {
     text-decoration-line: line-through;
-  }
-  .underline {
-    text-decoration-line: underline;
-  }
-  .placeholder-black {
-    &::placeholder {
-      color: #000000;
-    }
   }
   .placeholder-black\/60 {
     &::placeholder {
