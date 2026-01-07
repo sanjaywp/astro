@@ -515,10 +515,20 @@ display: block;
   .h6 {
     @apply text-base md:text-base lg:text-lg font-head font-bold mb-3;
   }
-
-   p {
-    @apply text-base leading-relaxed text-gray-600;
+  .wp-block-list li, p {
+    @apply text-base leading-relaxed text-[#17181aed];
   }
+
+  .blog-content :is(li > a, p > a){
+    @apply text-primary border-b-2 font-semibold border-primary hover:border-transparent transition-all duration-200 ease-in-out;
+  }
+  .wp-block-list{
+    @apply space-y-2 mb-3 pl-8 list-disc;
+  }
+  .wp-block-list strong{
+    @apply text-black;
+  }
+
 
   /* Service Card Styles */
   .service-card .card-image {
@@ -765,24 +775,26 @@ display: block;
 
 /* shop pagination */
 
-  .woocommerce-pagination {
-    @apply mt-10 flex justify-center;
+  .woocommerce-pagination,.post-pagination .nav-links {
+    @apply mt-10 flex justify-center gap-3;
   }
-  .woocommerce-pagination .page-numbers {
+
+  :is(.woocommerce-pagination,.post-pagination .nav-links) .page-numbers {
     @apply flex items-center gap-3;
   }
-  .woocommerce-pagination .page-numbers.current {
+  :is(.woocommerce-pagination,.post-pagination .nav-links) .page-numbers.current {
     @apply flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white text-base;
   }
-  .woocommerce-pagination .page-numbers:not(.current) {
+  :is(.woocommerce-pagination,.post-pagination .nav-links) .page-numbers:not(.current) {
     @apply flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-black text-base hover:bg-tertiary hover:text-black transition-colors duration-200;
   }
-  .woocommerce-pagination .page-numbers.next {
+  :is(.woocommerce-pagination,.post-pagination .nav-links) .page-numbers.next {
     @apply flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-black text-base hover:bg-tertiary hover:text-black transition-colors duration-200;
   }
-  .woocommerce-pagination .page-numbers .text-xl {
+  :is(.woocommerce-pagination,.post-pagination .nav-links) .page-numbers .text-xl {
     @apply text-xl;
   }
+
 }
 
 
