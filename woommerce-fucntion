@@ -1,1 +1,1042 @@
 
+<?php 
+add_action('woocommerce_before_main_content', function () {
+    echo '<div class="single-pg-banner"><h2 class="text-3xl lg:text-4xl text-white text-center">Our Collection</h2></div><div class="container px-[30px] sm:px-4 md:px-6 lg:px-8">';
+});
+add_action('woocommerce_after_main_content', function () {
+    echo '</div>';
+});
+add_action('woocommerce_before_cart', function () {
+    call_hella_bella_banner();
+    echo '<div class="container px-[30px] sm:px-4 md:px-6 lg:px-8">';
+}, 9);
+add_action('woocommerce_after_cart', function () {
+    echo '</div>';
+});
+
+add_action('woocommerce_cart_is_empty', function () {
+
+    if ( function_exists( 'call_hella_bella_banner' ) ) {
+        call_hella_bella_banner();
+    }
+}, 9); 
+
+add_action('woocommerce_before_checkout_form_cart_notices', function () {
+    call_hella_bella_banner();
+    echo '<div class="container px-[30px] sm:px-4 md:px-6 lg:px-8">';
+}, 9);
+add_action('woocommerce_after_checkout_form_cart_notices', function () {
+    echo '</div>';
+});
+
+// Thank you page banner wrapper
+add_action('woocommerce_before_thankyou', function () {
+    call_hella_bella_banner();
+    echo '<div class="container px-[30px] sm:px-4 md:px-6 lg:px-8">';
+}, 9);
+
+add_action('woocommerce_after_thankyou', function () {
+    echo '</div>';
+});
+
+// My Account page banner wrapper
+add_action('woocommerce_before_account_navigation', function () {
+    call_hella_bella_banner();
+    echo '<div class="container px-[30px] sm:px-4 md:px-6 lg:px-8">';
+}, 9);
+
+add_action('woocommerce_after_account_navigation', function () {
+    echo '</div>';
+});
+
+// ✅ Logged-out users (Login / Register
+add_action('woocommerce_before_customer_login_form', function () {
+    call_hella_bella_banner();
+    echo '<div class="container px-[30px] sm:px-4 md:px-6 lg:px-8">';
+}, 9);
+
+add_action('woocommerce_after_customer_login_form', function () {
+    echo '</div>';
+});
+
+if (! function_exists('call_hella_bella_banner') )
+{
+    function call_hella_bella_banner()
+    {
+        printf(
+            '<div class="single-pg-banner"><h1 class="text-3xl lg:text-4xl text-white text-center">%s</h1></div>',
+            get_the_title()
+        );
+    }
+}
+/* ============================================================
+   🔹 Product Card Component (Reusable for loop + swiper)
+============================================================ */
+function hbwe_render_product_card( $product, $context = 'loop' ) {
+    if ( empty( $product ) || ! $product->is_visible() ) return;
+
+    $nonce      = wp_create_nonce( 'custom_add_to_cart_nonce' );
+    $wrap_class = ( $context === 'swiper' ) ? 'swiper-slide product-card' : 'product-card';
+    ?>
+    <div class="<?php echo esc_attr( $wrap_class ); ?>" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
+        <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group">
+            <div class="relative">
+                <a href="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>" class="block">
+                    <?php
+                    $img_id = $product->get_image_id();
+                    if ( $img_id ) {
+                        echo wp_get_attachment_image(
+                            $img_id,
+                            'woocommerce_thumbnail',
+                            false,
+                            [
+                                'class'   => 'w-full object-cover transition-transform duration-300 group-hover:scale-105',
+                                'alt'     => esc_attr( $product->get_name() ),
+                                'loading' => 'lazy',
+                            ]
+                        );
+                    } else {
+                        $ph = wc_placeholder_img_src( 'woocommerce_thumbnail' );
+                        echo '<img src="' . esc_url( $ph ) . '" alt="' . esc_attr( $product->get_name() ) . '" class="w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />';
+                    }
+                    ?>
+                </a>
+
+                <?php if ( $product->is_on_sale() ) : ?>
+                    <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold w-12 h-12 rounded-full flex items-center justify-center">
+                        <?php esc_html_e( 'SALE', 'woocommerce' ); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="p-4 flex flex-col h-full">
+                <h3 class="text-xl font-semibold text-secondary mb-2 font-serif">
+                    <a href="<?php echo esc_url( get_permalink( $product->get_id() ) ); ?>" class="hover:underline">
+                        <?php echo esc_html( $product->get_name() ); ?>
+                    </a>
+                </h3>
+
+                <div class="text-lg font-bold text-primary mb-2">
+                    <?php echo wp_kses_post( $product->get_price_html() ); ?>
+                </div>
+
+                <div class="flex items-center mb-2">
+                    <div class="flex items-center">
+                        <?php echo function_exists( 'hbwe_render_stars_svg' ) ? hbwe_render_stars_svg( $product->get_average_rating() ) : wc_get_rating_html( $product->get_average_rating() ); ?>
+                    </div>
+                    <span class="text-sm text-neutral-secondary ml-2">
+                        (<?php echo esc_html( number_format_i18n( $product->get_average_rating(), 1 ) ); ?>)
+                    </span>
+                </div>
+
+                <?php if ( $product->is_type( 'variable' ) ) :
+                    $variation_attrs = $product->get_variation_attributes();
+                    foreach ( $variation_attrs as $attribute_key => $option_values ) :
+                        $tax   = str_replace( 'attribute_', '', $attribute_key );
+                        $label = wc_attribute_label( $tax ); ?>
+                        <div class="flex items-center space-x-2 mb-3 product-attribute"
+                            data-attribute-key="<?php echo esc_attr( sanitize_title( $attribute_key ) ); ?>">
+                            <span class="text-sm text-neutral-secondary">
+                                <?php echo esc_html( $label ); ?>:
+                            </span>
+                            <div class="attribute-options flex flex-wrap gap-1">
+                                <?php foreach ( $option_values as $opt ) :
+                                    if ( taxonomy_exists( $tax ) ) {
+                                        $send_value = sanitize_title( $opt );
+                                        $display    = ( $t = get_term_by( 'slug', $opt, $tax ) ) && ! is_wp_error( $t ) ? $t->name : $opt;
+                                    } else {
+                                        $send_value = trim( (string) $opt );
+                                        $display    = $opt;
+                                    } ?>
+                                    <span class="attribute-button px-2 py-1 text-xs border border-neutral-divider rounded cursor-pointer hover:bg-neutral-100 transition<?php echo (is_array($option_values) && count($option_values) === 1) ? ' selected disabled' : ''; ?>"
+                                        data-attr-name="<?php echo esc_attr( $attribute_key ); ?>"
+                                        data-attr-value="<?php echo esc_attr( $send_value ); ?>">
+                                        <?php echo esc_html( $display ); ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <div class="flex space-x-2 mt-auto">
+                    <button class="add-to-cart-btn flex-1 bg-secondary text-white py-2 px-4 rounded-full hover:bg-opacity-90 transition-colors duration-200"
+                        data-product_id="<?php echo esc_attr( $product->get_id() ); ?>">
+                        <?php esc_html_e( 'Add to Cart', 'woocommerce' ); ?>
+                    </button>
+                    <button class="buy-now-btn flex-1 bg-primary text-white py-2 px-4 rounded-full hover:bg-opacity-90 transition-colors duration-200"
+                        data-product_id="<?php echo esc_attr( $product->get_id() ); ?>">
+                        <?php esc_html_e( 'Buy Now', 'woocommerce' ); ?>
+                    </button>
+                    <input type="hidden" class="ajax-nonce" value="<?php echo esc_attr( $nonce ); ?>" />
+                </div>
+                <div class="mini-msg text-xs mt-1"></div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+
+/* ============================================================
+   🔹 Shop Page Override (use component)
+============================================================ */
+// Remove default Woo hooks
+remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+
+// Inject our card
+add_action( 'woocommerce_before_shop_loop_item', function() {
+    global $product;
+    hbwe_render_product_card( $product, 'loop' );
+}, 5 );
+
+/* ============================================================
+   🔹 Shortcode for Swiper Products (use component)
+============================================================ */
+function custom_wc_category_products_swiper_shortcode( $atts ) {
+    ob_start();
+
+    $atts = shortcode_atts([
+        'category' => '',
+        'limit'    => 8,
+    ], $atts, 'category_products_swiper');
+
+    $loop = new WP_Query([
+        'post_type'      => 'product',
+        'posts_per_page' => intval( $atts['limit'] ),
+        'tax_query'      => [[
+            'taxonomy' => 'product_cat',
+            'field'    => 'slug',
+            'terms'    => sanitize_title( $atts['category'] ),
+        ]],
+    ]);
+
+    if ( $loop->have_posts() ) : ?>
+        <div class="swiper myProductSwiper">
+            <div class="swiper-wrapper">
+                <?php while ( $loop->have_posts() ) : $loop->the_post();
+                    global $product;
+                    hbwe_render_product_card( $product, 'swiper' );
+                endwhile; ?>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    <?php else :
+        echo esc_html__( 'No products found.', 'woocommerce' );
+    endif;
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode( 'category_products_swiper', 'custom_wc_category_products_swiper_shortcode' );
+
+/* ============================================================
+   🔹 Assets (Swiper + JS for cart handling)
+============================================================ */
+function enqueue_swiper_assets() {
+    wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', [], '11.0.0' );
+    wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', ['jquery'], '11.0.0', true );
+
+    wp_add_inline_script( 'swiper-js', "
+        jQuery(function($){
+            if ($('.myProductSwiper').length) {
+                new Swiper('.myProductSwiper', {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                    loop: true,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    breakpoints: {
+                        320: { slidesPerView: 1 },
+                        640: { slidesPerView: 2 },
+                        1024: { slidesPerView: 4 }
+                    }
+                });
+            }
+        });
+    " );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_swiper_assets' );
+
+/* ============================================================
+   🔹 Shortcode for Latest Products Swiper
+============================================================ */
+function custom_wc_latest_products_swiper_shortcode( $atts ) {
+    ob_start();
+
+    $atts = shortcode_atts([
+        'limit' => 8,
+    ], $atts, 'latest_products_swiper');
+
+    $loop = new WP_Query([
+        'post_type'      => 'product',
+        'posts_per_page' => intval( $atts['limit'] ),
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'post_status'    => 'publish',
+    ]);
+
+    if ( $loop->have_posts() ) : ?>
+        <div class="swiper myProductSwiper">
+            <div class="swiper-wrapper">
+                <?php while ( $loop->have_posts() ) : $loop->the_post();
+                    global $product;
+                    hbwe_render_product_card( $product, 'swiper' );
+                endwhile; ?>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    <?php else :
+        echo esc_html__( 'No products found.', 'woocommerce' );
+    endif;
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode( 'latest_products_swiper', 'custom_wc_latest_products_swiper_shortcode' );
+
+
+/* ============================================================
+   🔹 Stars Renderer
+============================================================ */
+function hbwe_render_stars_svg( $rating ) {
+    $rating = floatval( $rating );
+    $filled = max( 0, min( 5, (int) round( $rating ) ) );
+    $empty  = 5 - $filled;
+
+    $star = function( $class ) {
+        return '<svg class="w-4 h-4 '.$class.'" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+    };
+
+    $html = '';
+    for ( $i = 0; $i < $filled; $i++ ) $html .= $star('text-yellow-400');
+    for ( $i = 0; $i < $empty; $i++ )  $html .= $star('text-gray-300');
+    return $html;
+}
+
+/* ============================================================
+   🔹 AJAX: Add to Cart + Buy Now
+============================================================ */
+add_action( 'wp_ajax_custom_add_to_cart', 'custom_add_to_cart_ajax' );
+add_action( 'wp_ajax_nopriv_custom_add_to_cart', 'custom_add_to_cart_ajax' );
+
+function custom_add_to_cart_ajax() {
+    check_ajax_referer( 'custom_add_to_cart_nonce' );
+
+    $product_id = absint( $_POST['product_id'] ?? 0 );
+    $incoming   = (array) ( $_POST['attributes'] ?? [] );
+    $buy_now    = ! empty( $_POST['buy_now'] );
+
+    $product = wc_get_product( $product_id );
+    if ( ! $product ) wp_send_json_error( 'Product not found.' );
+
+    if ( $product->is_type('variable') ) {
+        $required_map = $product->get_variation_attributes();
+        $normalized   = [];
+        foreach ( $required_map as $canon_key => $possible_vals ) {
+			$transformedKey = strtolower(sanitize_title($canon_key));
+            if ( empty( $incoming[$transformedKey] ) ) {
+                wp_send_json_error( 'Please select all options.' );
+            }
+            $val = wp_unslash( $incoming[$transformedKey] );
+            $normalized['attribute_'.$transformedKey] = $val;
+        }
+        $variation_id = $product->get_matching_variation( $normalized );
+        if ( ! $variation_id ) wp_send_json_error( 'Variation not available.' );
+
+        $added = WC()->cart->add_to_cart( $product_id, 1, $variation_id, $normalized );
+    } else {
+        $added = WC()->cart->add_to_cart( $product_id, 1 );
+    }
+
+    if ( ! $added ) wp_send_json_error( 'Could not add to cart.' );
+
+    wp_send_json_success([
+        'redirect' => $buy_now ? wc_get_checkout_url() : wc_get_cart_url()
+    ]);
+}
+
+/* ============================================================
+   🔹 Frontend JS for AJAX buttons
+============================================================ */
+add_action( 'wp_footer', function() {
+    if ( is_admin() ) return; ?>
+    <style>
+        .attribute-button.selected { border-color:#d8231e; background:#d8231e; color:#fff; }
+        .mini-msg.err { color:#dc2626; }
+        .mini-msg.ok { color:#16a34a; }
+    </style>
+    <script>
+    jQuery(function($){
+        $(document).on("click", ".attribute-button", function(){
+            const $btn = $(this), $wrap = $btn.closest(".attribute-options"), $card = $btn.closest(".product-card");
+            $wrap.find(".attribute-button").removeClass("selected"); $btn.addClass("selected").removeClass("disabled");
+            const key = $(this).closest('.product-attribute').data('attribute-key').toLowerCase(), val = $btn.data("attr-value");
+            const map = $card.data("selectedAttributes") || {}; map[key] = val;
+            $card.data("selectedAttributes", map);
+        });
+
+        function showMsg($card, text, isErr){
+            $card.find('.mini-msg').text(text).removeClass('err ok').addClass(isErr ? 'err':'ok');
+        }
+
+        function sendToCart($btn, buyNow){
+			const $card = $btn.closest(".product-card"),req = [];
+			$card.find('.product-attribute').each(function(){
+				const $attr = $(this);
+				const key = $attr.data('attribute-key');
+
+				const options = $attr.find('.attribute-button');
+
+				if (options.length <= 1) {
+					const $singleOption = options.eq(0);
+					const selected = $card.data("selectedAttributes") || {};
+
+					if (!selected[key]) {
+						selected[key] = $singleOption.data("attr-value");
+						$card.data("selectedAttributes", selected);
+
+						options.removeClass('selected');
+						$singleOption.addClass('selected');
+					}
+
+					return;
+				}
+
+				req.push(key);
+			});
+
+			const selected = $card.data("selectedAttributes") || {};
+			for (let i = 0; i < req.length; i++){
+				if (!selected[req[i]]) {
+					showMsg($card, "Please select all options.", true);
+					return;
+				}
+			}
+
+			$.post("<?php echo esc_url(admin_url('admin-ajax.php')); ?>", {
+				action: "custom_add_to_cart",
+				_ajax_nonce: $card.find('.ajax-nonce').val(),
+				product_id: $btn.data("product_id"),
+				attributes: selected,
+				buy_now: buyNow ? 1 : 0
+			}).done(function(resp){
+				if (resp.success && resp.data.redirect){
+					window.location.href = resp.data.redirect;
+				} else {
+					showMsg($card, resp.data || "Error adding to cart.", true);
+				}
+			}).fail(function(){
+				showMsg($card, "Request failed.", true);
+			});
+		}
+
+        $(document).on("click",".add-to-cart-btn",function(e){ e.preventDefault(); sendToCart($(this),false); });
+        $(document).on("click",".buy-now-btn",function(e){ e.preventDefault(); sendToCart($(this),true); });
+		
+		$('.product-card').each(function(){
+			let card = $(this);
+			let product_id = card.data('product-id');
+
+			$.post(woocommerce_params.ajax_url, {
+				action: 'get_variations_data',
+				product_id: product_id
+			}, function(response){
+				if (!response.success) return;
+				let variations = response.data;
+				card.on('click', '.attribute-button', function(){
+					let selectedAttrVal = $(this).data("attr-value");
+					let selectedAttrKey = $(this).closest('.product-attribute').data('attribute-key').toLowerCase();
+					card.find('.attribute-button').each(function(){
+						const targetAttrKey = $(this).closest('.product-attribute').data('attribute-key').toLowerCase();
+						if (selectedAttrKey === targetAttrKey) return;
+						$(this).removeClass('disabled');
+						const isColorAvailable = variations.find(variation => variation.attributes[`attribute_${selectedAttrKey}`] === selectedAttrVal && variation.attributes[`attribute_${targetAttrKey}`] === $(this).data("attr-value"));
+						if (!isColorAvailable) {
+							$(this).addClass('disabled');
+							$(this).removeClass('selected');
+						}
+					});
+				});
+			}, 'json');
+		});
+    });
+    </script>
+<?php });
+
+
+// Remove sidebar from WooCommerce pages
+add_action('wp', function() {
+    if ( is_shop() || is_product() || is_product_category() ) {
+        remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+    }
+});
+
+// Remove product tab headings (Description, Additional Information, Reviews)
+add_filter( 'woocommerce_product_description_heading', '__return_false' );
+add_filter( 'woocommerce_product_additional_information_heading', '__return_false' );
+add_filter( 'woocommerce_product_reviews_heading', '__return_false' );
+
+
+
+/**
+ * ==============================
+ * Custom Variant Swatches (Color as Image, Size as Radio)
+ * ==============================
+ */
+
+/* --- render swatches/radios --- */
+add_action('woocommerce_before_add_to_cart_form', 'bwe_custom_variation_options', 20);
+function bwe_custom_variation_options() {
+    global $product;
+
+    if ( ! $product || ! $product->is_type('variable') ) return;
+
+    $attributes = $product->get_variation_attributes();
+    $available_variations = $product->get_available_variations();
+    $default_attributes = $product->get_default_attributes();
+
+    foreach ( $attributes as $attribute_name => $options ) {
+        $attribute_label = wc_attribute_label( $attribute_name );
+        $sanitized_attr  = sanitize_title( $attribute_name );
+
+        echo '<div class="bwe-variation-group" data-attribute_name="attribute_' . esc_attr( $sanitized_attr ) . '">';
+        echo '<h4 class="font-semibold">' . esc_html( $attribute_label ) . '</h4>';
+
+        if ( $sanitized_attr === 'color' ) {
+            echo '<div class="bwe-variation-swatches">';
+            $printed_colors = [];
+
+            foreach ( $available_variations as $variation ) {
+                $variation_id = $variation['variation_id'];
+                $attr_value   = $variation['attributes']['attribute_' . $sanitized_attr];
+
+                if ( ! $attr_value || in_array( $attr_value, $printed_colors, true ) ) continue;
+                $printed_colors[] = $attr_value;
+
+                $image_id = $variation['image_id'];
+                if ( ! $image_id ) continue;
+
+                $image_url  = wp_get_attachment_image_url( $image_id, 'thumbnail' );
+
+                $active = '';
+                if ( ( isset($default_attributes[$sanitized_attr]) && $default_attributes[$sanitized_attr] === $attr_value )
+                     || count($options) === 1 ) {
+                    $active = 'active';
+                }
+
+                echo '<div class="bwe-swatch-wrapper">';
+                echo '<div class="bwe-swatch ' . $active . '" data-value="' . esc_attr($attr_value) . '">';
+                echo '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($attr_value) . '">';
+                echo '</div>';
+                echo '<span class="bwe-tooltip">' . esc_html($attr_value) . '</span>';
+                echo '</div>';
+            }
+            echo '</div>';
+
+        } elseif ( $sanitized_attr === 'size' ) {
+            echo '<div class="bwe-variation-radios">';
+            foreach ( $options as $option ) {
+                $checked = '';
+                if ( isset($default_attributes[$sanitized_attr]) && $default_attributes[$sanitized_attr] === $option ) {
+                    $checked = 'checked';
+                }
+                echo '<label class="bwe-radio">';
+                echo '<input type="radio" name="attribute_' . esc_attr( $sanitized_attr ) . '" value="' . esc_attr( $option ) . '" ' . $checked . '>';
+                echo '<span>' . esc_html( $option ) . '</span>';
+                echo '</label>';
+            }
+            echo '</div>';
+        } else {
+            echo '<div class="bwe-variation-radios">';
+            foreach ( $options as $option ) {
+                $checked = '';
+                if ( isset($default_attributes[$sanitized_attr]) && $default_attributes[$sanitized_attr] === $option ) {
+                    $checked = 'checked';
+                }
+                echo '<label class="bwe-radio">';
+                echo '<input type="radio" name="attribute_' . esc_attr( $sanitized_attr ) . '" value="' . esc_attr( $option ) . '" ' . $checked . '>';
+                echo '<span>' . esc_html( $option ) . '</span>';
+                echo '</label>';
+            }
+            echo '</div>';
+        }
+        echo '</div>';
+    }
+}
+
+/* --- JS + CSS --- */
+add_action( 'wp_enqueue_scripts', 'bwe_enqueue_swatch_scripts' );
+function bwe_enqueue_swatch_scripts() {
+    wp_enqueue_script( 'jquery' );
+
+    $custom_js = "
+	jQuery(document).ready(function($){
+
+		var variationsData = $('form.variations_form').data('product_variations');
+		if (!variationsData) return;
+
+		function getSelectedAttributes() {
+			var selected = {};
+
+			$('.bwe-variation-group').each(function(){
+				var attr = $(this).data('attribute_name');
+
+				var swatch = $(this).find('.bwe-swatch.active');
+				var radio  = $(this).find('input[type=radio]:checked');
+
+				if (swatch.length) {
+					selected[attr] = swatch.data('value');
+				} else if (radio.length) {
+					selected[attr] = radio.val();
+				}
+			});
+
+			return selected;
+		}
+
+		function updateAvailability() {
+
+			var selected = getSelectedAttributes();
+
+			$('.bwe-variation-group').each(function(){
+
+				var currentAttr = $(this).data('attribute_name');
+
+				$(this).find('.bwe-swatch, input[type=radio]').each(function(){
+
+					var optionVal = $(this).data('value') || $(this).val();
+					var isValid = false;
+
+					variationsData.forEach(function(variation){
+
+						var match = true;
+
+						for (var attr in selected) {
+							if (attr === currentAttr) continue;
+							if (variation.attributes[attr] !== selected[attr]) {
+								match = false;
+								break;
+							}
+						}
+
+						if (match && variation.attributes[currentAttr] === optionVal) {
+							isValid = true;
+						}
+					});
+
+					if (!isValid) {
+						$(this)
+							.addClass('disabled')
+							.prop('disabled', true)
+							.closest('.bwe-radio').addClass('disabled');
+					} else {
+						$(this)
+							.removeClass('disabled')
+							.prop('disabled', false)
+							.closest('.bwe-radio').removeClass('disabled');
+					}
+				});
+			});
+		}
+
+		// COLOR / IMAGE SWATCH CLICK
+		$(document).on('click', '.bwe-swatch', function(){
+
+			if ($(this).hasClass('disabled')) return;
+
+			var value = $(this).data('value');
+			var attr  = $(this).closest('.bwe-variation-group').data('attribute_name');
+
+			$('select[name=\"' + attr + '\"]').val(value).trigger('change');
+
+			$(this).closest('.bwe-variation-swatches')
+				   .find('.bwe-swatch').removeClass('active');
+
+			$(this).addClass('active');
+
+			updateAvailability();
+		});
+
+		// RADIO CLICK
+		$(document).on('change', '.bwe-variation-radios input[type=radio]', function(){
+
+			if ($(this).prop('disabled')) return;
+
+			var attr = $(this).closest('.bwe-variation-group').data('attribute_name');
+			$('select[name=\"' + attr + '\"]').val($(this).val()).trigger('change');
+
+			updateAvailability();
+		});
+
+	});";
+    wp_add_inline_script( 'jquery', $custom_js );
+
+    $custom_css = "
+        /* Hide default Woo dropdown rows but keep selects for JS logic */
+        .variations .value select { 
+            position: absolute !important;
+            left: -9999px !important; 
+            width: 1px !important; 
+            height: 1px !important; 
+            opacity: 0 !important;
+        }
+        .variations .label { display: none !important; }
+
+        /* Color Swatches */
+        .bwe-variation-swatches { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0; }
+        .bwe-swatch-wrapper { position: relative; display: inline-block; }
+        .bwe-swatch { border: 2px solid #ddd; padding: 3px; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .bwe-swatch:hover { border-color: #666; }
+        .bwe-swatch.active { border-color: #000; }
+        .bwe-swatch img { width: 50px; height: 50px; object-fit: cover; display: block; }
+
+        /* Tooltip */
+        .bwe-tooltip {
+            visibility: hidden; width: max-content; background:#333; color:#fff;
+            text-align:center; padding:5px 8px; border-radius:4px; position:absolute; z-index:10;
+            bottom:110%; left:50%; transform:translateX(-50%); opacity:0; transition:opacity .3s;
+            font-size:12px; white-space:nowrap;
+        }
+        .bwe-swatch-wrapper:hover .bwe-tooltip { visibility: visible; opacity: 1; }
+
+        /* Size Radios */
+        .bwe-variation-radios { display:flex; flex-wrap:wrap; gap:10px; margin:10px 0; }
+        .bwe-radio { cursor:pointer; border:2px solid #ddd; border-radius:50%; height:40px; width:40px; display:flex; align-items:center; justify-content:center; transition:.2s; }
+        .bwe-radio input { display:none; }
+        .bwe-radio span { font-size:14px; }
+        .bwe-radio:hover { border-color:#666; }
+        .bwe-radio input:checked + span { font-weight:bold; border-color:#000; color:#d8231e; }
+
+        /* Disabled sizes */
+        .bwe-radio.disabled {
+            opacity: 0.4;
+            cursor: not-allowed !important;
+            border-color: #ccc !important;
+        }
+        .bwe-radio.disabled span {
+            color: #999;
+        }
+    ";
+    wp_register_style('bwe-inline', false);
+    wp_enqueue_style('bwe-inline');
+    wp_add_inline_style( 'bwe-inline', $custom_css );
+}
+
+
+
+
+/**
+ * Custom Quantity Box (– 1 +) — all in functions.php
+ * Works on single product pages (simple & variable).
+ */
+
+/* -------------------------------
+ * 1) Output the minus button before the qty input
+ * and the plus button after the qty input (Woo hooks)
+ * ------------------------------- */
+add_action( 'woocommerce_before_add_to_cart_quantity', 'bwe_custom_qty_minus_btn' );
+function bwe_custom_qty_minus_btn() {
+    echo '<div class="font-semibold mb-4">Quantity</div><div class="bwe-custom-quantity"><button type="button" class="bwe-qty-btn bwe-minus" aria-label="Decrease quantity">−</button>';
+}
+
+add_action( 'woocommerce_after_add_to_cart_quantity', 'bwe_custom_qty_plus_btn' );
+function bwe_custom_qty_plus_btn() {
+    echo '<button type="button" class="bwe-qty-btn bwe-plus" aria-label="Increase quantity">+</button></div>';
+}
+
+/* -------------------------------
+ * 2) Register & enqueue an inline script (properly attached to a real handle)
+ * ------------------------------- */
+add_action( 'wp_enqueue_scripts', 'bwe_custom_qty_enqueue_script' );
+function bwe_custom_qty_enqueue_script() {
+    if ( ! is_product() ) {
+        return;
+    }
+
+    // Register a handle that depends on jQuery and prints in footer (no external src)
+    wp_register_script( 'bwe-custom-qty', false, array( 'jquery' ), '1.0', true );
+    wp_enqueue_script( 'bwe-custom-qty' );
+
+    // Inline JS — uses delegation and robust selectors
+    $js = <<<JS
+jQuery(function($){
+    // delegated handler — works even if DOM is modified by other plugins/themes
+    $(document).on('click', '.bwe-qty-btn', function(e){
+        e.preventDefault();
+        var \$btn = $(this);
+        // find the closest custom wrapper then the qty input inside it
+        var \$wrapper = \$btn.closest('.bwe-custom-quantity');
+        var \$input = \$wrapper.find('input.qty');
+
+        // if not found, try to find input in same form (fallback)
+        if ( \$input.length === 0 ) {
+            \$input = \$btn.closest('form.cart').find('input.qty').first();
+        }
+
+        if ( \$input.length === 0 ) {
+            return; // nothing to do
+        }
+
+        // parse values safely
+        var val = parseInt( \$input.val(), 10 );
+        if ( isNaN(val) ) val = 0;
+        var step = parseInt( \$input.attr('step'), 10 );
+        if ( isNaN(step) || step <= 0 ) step = 1;
+        var min = parseInt( \$input.attr('min'), 10 );
+        if ( isNaN(min) ) min = 1;
+        var maxAttr = \$input.attr('max');
+        var max = ( typeof maxAttr !== 'undefined' && maxAttr !== '' ) ? parseInt( maxAttr, 10 ) : null;
+        if ( max !== null && isNaN(max) ) max = null;
+
+        if ( \$btn.hasClass('bwe-plus') ) {
+            var next = val + step;
+            if ( max === null || next <= max ) {
+                \$input.val(next).trigger('change');
+            }
+        } else if ( \$btn.hasClass('bwe-minus') ) {
+            var next2 = val - step;
+            if ( next2 >= min ) {
+                \$input.val(next2).trigger('change');
+            } else if ( val > min ) {
+                // ensure it doesn't go below min
+                \$input.val(min).trigger('change');
+            }
+        }
+    });
+});
+JS;
+
+    wp_add_inline_script( 'bwe-custom-qty', $js );
+}
+
+/* -------------------------------
+ * 3) Add CSS (inline for simplicity) to match your screenshot
+ * ------------------------------- */
+add_action( 'wp_head', 'bwe_custom_qty_inline_styles' );
+function bwe_custom_qty_inline_styles() {
+    if ( ! is_product() ) {
+        return;
+    }
+    echo '<style>
+    /* container that wraps minus, input, plus */
+    .bwe-custom-quantity {
+        display: flex;
+        align-items: center;
+        border: 1px solid #e6e6e6;
+        border-radius: 4px;
+        overflow: hidden;
+        height: 44px;
+        min-width: 120px;
+        box-sizing: border-box;
+        background: #fff;
+		margin-bottom: 20px;
+    }
+
+    /* clean number input */
+    .bwe-custom-quantity input.qty {
+        width: 56px;
+        text-align: center;
+        border: none !important;
+        box-shadow: none !important;
+        font-size: 16px;
+        height: 100%;
+        -webkit-appearance: none;
+        -moz-appearance: textfield; /* hide default spinner in Firefox */
+    }
+
+    /* hide native spinners for webkit */
+    .bwe-custom-quantity input.qty::-webkit-outer-spin-button,
+    .bwe-custom-quantity input.qty::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* plus/minus buttons */
+    .bwe-qty-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 100%;
+        border: none;
+        background: transparent;
+        color: #666;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .bwe-qty-btn:hover {
+        background: #f5f5f5;
+    }
+
+    /* keep add to cart button aligned with qty if you want inline layout */
+    form.cart { display: flex; align-items: center; flex-wrap: wrap; }
+
+    /* tweak Add to cart button height to match qty box */
+    .single_add_to_cart_button {
+        height: 44px;
+        line-height: 44px;
+        padding: 0 20px;
+        border-radius: 4px;
+    }
+    </style>';
+}
+
+
+/* 1) Shortcodes for widget header */
+add_shortcode('wc_cart_count', function () {
+    $count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
+    return '<span id="header-cart-count" class="cart-count">'.$count.'</span>';
+});
+add_shortcode('wc_cart_url', function () { return esc_url( wc_get_cart_url() ); });
+
+/* 2) Make Woo fragments replace our badge after add-to-cart (AJAX) */
+add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
+    ob_start();
+    echo '<span id="header-cart-count" class="cart-count">' .
+         ( WC()->cart ? WC()->cart->get_cart_contents_count() : 0 ) .
+         '</span>';
+    $html = ob_get_clean();
+    $fragments['#header-cart-count'] = $html;   // our ID
+    $fragments['.cart-count']        = $html;   // fallback selector
+    return $fragments;
+});
+
+/* 3) Ensure cart-fragments script is loaded on every front-end page */
+add_action('wp_enqueue_scripts', function () {
+    if ( class_exists('WooCommerce') ) {
+        wp_enqueue_script('wc-cart-fragments');
+        wp_enqueue_script('wc-add-to-cart');
+    }
+});
+
+/* 4) JS fallback: refresh fragments when items are added/removed */
+add_action('wp_footer', function () { ?>
+<script>
+(function($){
+  function refreshCartCount(){ $(document.body).trigger('wc_fragment_refresh'); }
+  $(document.body).on('added_to_cart removed_from_cart updated_cart_totals', refreshCartCount);
+})(jQuery);
+</script>
+<?php });
+
+// ✅ Show only WooCommerce products in search results
+function hbwe_search_only_products( $query ) {
+    if ( ! is_admin() && $query->is_main_query() && $query->is_search ) {
+        $query->set( 'post_type', 'product' );
+    }
+}
+add_action( 'pre_get_posts', 'hbwe_search_only_products' );
+
+
+// Remove default WooCommerce tabs
+add_filter('woocommerce_product_tabs', 'custom_remove_woocommerce_tabs', 98);
+function custom_remove_woocommerce_tabs($tabs) {
+    unset($tabs['description']);
+    unset($tabs['additional_information']);
+    unset($tabs['reviews']);
+    return $tabs;
+}
+add_action('woocommerce_after_single_product_summary', 'custom_product_tabs_section', 5);
+function custom_product_tabs_section() {
+    global $product;
+    ?>
+    <div class="custom-product-tabs">
+        <div class="tab-item">
+            <button class="tab-header">
+                <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title" role="img">
+      <title id="title">Document</title>
+      <path d="M22 10V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M7 13H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      <path d="M7 17H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg></span>
+                Description
+                <span class="tab-toggle">+</span>
+            </button>
+            <div class="tab-content">
+                <?php the_content(); ?>
+            </div>
+        </div>
+
+        <div class="tab-item">
+            <button class="tab-header">
+                <span class="tab-icon"><svg width="24" height="24" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 4.482a2.25 2.25 0 0 1 2.25-2.25h10.5A2.25 2.25 0 0 1 20 4.482v17a.75.75 0 0 1-1.166.625l-5.918-3.946a.75.75 0 0 0-.832 0l-5.918 3.945A.75.75 0 0 1 5 21.483zm2.25-.75a.75.75 0 0 0-.75.75v15.599l4.752-3.168a2.25 2.25 0 0 1 2.496 0l4.752 3.168V4.482a.75.75 0 0 0-.75-.75z" fill="#000"/></svg></span>
+                Additional Information
+                <span class="tab-toggle">+</span>
+            </button>
+            <div class="tab-content">
+                <?php do_action('woocommerce_product_additional_information', $product); ?>
+            </div>
+        </div>
+
+        <div class="tab-item">
+            <button class="tab-header">
+                <span class="tab-icon"> <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9996 2.125C12.2851 2.125 12.5459 2.28707 12.6722 2.54308L15.3264 7.9211L21.2614 8.78351C21.5439 8.82456 21.7786 9.02244 21.8669 9.29395C21.9551 9.56546 21.8815 9.86351 21.6771 10.0628L17.3825 14.249L18.3963 20.16C18.4445 20.4414 18.3289 20.7257 18.0979 20.8936C17.867 21.0614 17.5608 21.0835 17.3081 20.9506L11.9996 18.1598L6.69122 20.9506C6.43853 21.0835 6.13233 21.0614 5.90137 20.8936C5.67041 20.7257 5.55475 20.4414 5.603 20.16L6.61682 14.249L2.32222 10.0628C2.11779 9.86351 2.04421 9.56546 2.13243 9.29395C2.22065 9.02244 2.45536 8.82456 2.73788 8.78351L8.67288 7.9211L11.3271 2.54308C11.4534 2.28707 11.7142 2.125 11.9996 2.125ZM11.9996 4.56966L9.84348 8.93853C9.73423 9.15989 9.52306 9.31331 9.27878 9.34881L4.45745 10.0494L7.94619 13.4501C8.12296 13.6224 8.20362 13.8706 8.16189 14.1139L7.33831 18.9158L11.6506 16.6487C11.8691 16.5338 12.1302 16.5338 12.3486 16.6487L16.661 18.9158L15.8374 14.1139C15.7957 13.8706 15.8763 13.6224 16.0531 13.4501L19.5418 10.0494L14.7205 9.34881C14.4762 9.31331 14.2651 9.15989 14.1558 8.93853L11.9996 4.56966Z" fill="#000"/>
+</svg>
+ </span>
+                Reviews
+                <span class="tab-toggle">+</span>
+            </button>
+            <div class="tab-content">
+                <?php comments_template(); ?>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+
+add_filter( 'woocommerce_package_rates', 'vikas_hide_flat_rate_if_free_shipping_active', 100, 2 );
+function vikas_hide_flat_rate_if_free_shipping_active( $rates, $package ) {
+
+    $flat_rate_id  = 'flat_rate:4';       // Your flat rate ID
+    $free_rate_id  = 'free_shipping:5';   // Your free shipping ID
+
+    // If free shipping exists, remove flat rate
+    if ( isset( $rates[$free_rate_id] ) ) {
+        if ( isset( $rates[$flat_rate_id] ) ) {
+            unset( $rates[$flat_rate_id] );
+        }
+    }
+
+    return $rates;
+}
+
+add_action( 'wp_ajax_get_variations_data', 'get_variations_data' );
+add_action( 'wp_ajax_nopriv_get_variations_data', 'get_variations_data' );
+
+function get_variations_data() {
+
+    if ( empty($_POST['product_id']) ) {
+        wp_send_json_error('Missing product ID');
+    }
+
+    $product = wc_get_product( intval($_POST['product_id']) );
+
+    if (! $product || ! $product->is_type('variable')) {
+        wp_send_json_error('Not a variable product');
+    }
+
+    $variations = [];
+
+    foreach ($product->get_available_variations() as $var) {
+        $variations[] = [
+            'variation_id' => $var['variation_id'],
+            'attributes'   => $var['attributes'],
+            'is_active'    => $var['is_active']
+        ];
+    }
+
+    wp_send_json_success( $variations );
+}
