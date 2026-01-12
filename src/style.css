@@ -106,7 +106,7 @@
   }
 
   .top-bar {
-    @apply bg-primary block md:hidden lg:block py-2.5 text-sm lg:bg-linear-to-r from-primary to-tertiary;
+    @apply bg-primary py-2.5 text-sm lg:bg-linear-to-r from-primary via-tertiary/80 to-primary;
   }
 
   /* Dropdown Styles */
@@ -139,7 +139,7 @@
     position: absolute;
     left: 0px;
     top: 100%;
-    z-index: 99;
+    z-index: 9999;
     min-width: 100%;
     transition: all 0.5s ease-in-out;
     background: #f9f5ce; 
@@ -228,7 +228,7 @@ display: block;
     }
 
     .th-dropdown ul {
-      width: 350px;
+      width: fit-content;
       background: #fff;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       border-radius: 8px;
@@ -311,6 +311,8 @@ display: block;
       @apply inline-block px-8 py-3 bg-primary text-white rounded-full text-sm font-medium hover:bg-sc transition-colors duration-200;
       display: inline-block;
     } */
+
+    
   }
 
   /* Mobile Navigation Styles */
@@ -544,7 +546,7 @@ display: block;
   }
 
   /* Swiper/Slider Styles */
-  .swiper {
+  .courses-section .swiper {
     @apply w-full h-[400px];
   }
 
@@ -716,7 +718,7 @@ display: block;
     @apply bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg;
   }
   .p-img {
-    @apply w-full h-48 overflow-hidden bg-gray-100;
+    @apply w-full overflow-hidden bg-gray-100;
   }
   .p-img img {
     @apply w-full h-full object-cover;
@@ -749,7 +751,7 @@ display: block;
     @apply flex items-baseline gap-2 mb-1;
   }
   .p-price {
-    @apply text-2xl font-bold text-black;
+    @apply text-xl font-bold text-black;
   }
   .p-per {
     @apply text-gray-500 text-sm;
