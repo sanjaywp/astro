@@ -39,6 +39,15 @@
   }
 }
 
+@keyframes circle {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
 /* ===========================
   Base Layer
 =========================== */
@@ -797,6 +806,12 @@ display: block;
     @apply text-xl;
   }
 
+  /* Rotating Circle Animation Component */
+
+  .rotate {
+    @apply w-full h-full;
+    animation: circle 10s infinite linear;
+  }
 }
 
 
