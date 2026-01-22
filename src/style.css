@@ -474,6 +474,60 @@ display: block;
   Components Layer
 =========================== */
 @layer components {
+
+ .whatsapp-chat {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 9999;
+            animation: floatUpDown 2s ease-in-out infinite;
+        }
+
+        .whatsapp-text {
+            background-color: #f1f1f1;
+            color: #000;
+            padding: 10px 14px;
+            font-size: 16px;
+            margin-right: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 1px solid #cccccc5c;
+        }
+
+        .whatsapp-icon {
+            background-color: #25d366;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .whatsapp-icon img {
+            width: 24px;
+            height: 24px;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
   /* Button Styles */
   .btn-primary { @apply inline-flex items-center gap-2 lg:gap-4 rounded-full bg-sc text-white py-2 pl-5 pr-2 cursor-pointer transition-all duration-200 ease-in-out hover:bg-primary hover:text-white w-fit overflow-hidden;
   }
