@@ -597,7 +597,7 @@ display: block;
 
   /* Service Card Styles */
   .service-card .card-image {
-    @apply w-full h-48 rounded-xl overflow-hidden mb-4;
+    @apply w-full rounded-xl overflow-hidden mb-4;
   }
 
   .service-card .card-title {
@@ -669,40 +669,39 @@ display: block;
   }
 
   /* Palm Reading Section Styles */
+
   .palm-reading-section::before,
   .palm-reading-section::after {
+    @apply hidden;
     content: "";
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 400px;
-    background-color: white;
-    z-index: 1;
-    pointer-events: none;
   }
 
-  .palm-reading-section::before {
-    top: 0;
-    rotate: 180deg;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  }
-
-  .palm-reading-section::after {
-    bottom: -1px;
-    rotate: 0deg;
-    clip-path: polygon(50% 20%, 0% 100%, 100% 100%);
-  }
-
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 1024px) {
     .palm-reading-section::before,
     .palm-reading-section::after {
-      display: none;
+      @apply block absolute left-0 w-full h-[400px] bg-white z-[1] pointer-events-none;
+      content: "";
     }
 
-    .palm-reading-section :is(.sec-title, .sec-subtitle, .sec-title p) {
-      color: white !important;
+    .palm-reading-section::before {
+      @apply top-0;
+      rotate: 180deg;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    .palm-reading-section::after {
+      @apply -bottom-px;
+      rotate: 0deg;
+      clip-path: polygon(50% 20%, 0% 100%, 100% 100%);
     }
   }
+
+  @media screen and (max-width: 1023px) {
+    .palm-reading-section :is(.sec-title, .sec-subtitle, .sec-title p) {
+      @apply text-white;
+    }
+  }
+
 
   /* Footer Styles */
 
