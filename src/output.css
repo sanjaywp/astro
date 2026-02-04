@@ -601,9 +601,6 @@
   .max-w-5xl {
     max-width: var(--container-5xl);
   }
-  .max-w-6xl {
-    max-width: var(--container-6xl);
-  }
   .max-w-9\/10 {
     max-width: calc(9/10 * 100%);
   }
@@ -2451,6 +2448,11 @@
       gap: calc(var(--spacing) * 6);
     }
   }
+  .lg\:gap-7 {
+    @media (width >= 64rem) {
+      gap: calc(var(--spacing) * 7);
+    }
+  }
   .lg\:gap-8 {
     @media (width >= 64rem) {
       gap: calc(var(--spacing) * 8);
@@ -3320,7 +3322,7 @@
     color: #374151;
   }
   .courses-section .swiper {
-    height: 400px;
+    height: auto;
     width: 100%;
   }
   .courses-section .swiper-vertical > .swiper-wrapper {

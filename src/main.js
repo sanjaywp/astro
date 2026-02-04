@@ -290,4 +290,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize stats counter
   initStatsCounter();
+
+  // ============================================
+  // Read More/Less Function
+  // ============================================
+
+
 });
