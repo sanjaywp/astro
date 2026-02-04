@@ -610,7 +610,7 @@ display: block;
 
   /* Swiper/Slider Styles */
   .courses-section .swiper {
-    @apply w-full h-auto;
+    @apply w-full h-[400px];
   }
 
   .courses-section .swiper-vertical > .swiper-wrapper {
