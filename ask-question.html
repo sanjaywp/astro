@@ -372,22 +372,24 @@
             </div>
         </div>
 
-
-        <div class="container">
+        <div class="container ask-question-form">
             <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-full lg:col-span-8 px-6 py-8 lg:px-10 flex flex-col h-full justify-center relative z-10 bg-white rounded-2xl shadow-lg border border-gray-300">
+                <div
+                    class="col-span-full lg:col-span-8 px-6 py-8 lg:px-10 flex flex-col h-full justify-center relative z-10 bg-white rounded-2xl shadow-lg border border-gray-300">
                     <div class="flex flex-col items-center lg:items-start gap-4 ">
-                        <h2 class="h3 font-head font-bold mb-2 text-black lg:text-start w-full tracking-tight">Ask Question</h2>
-                        <form class="w-full grid grid-cols-1 gap-7" autocomplete="off">
+                        <h2 class="h3 font-head font-bold mb-2 text-black lg:text-start w-full tracking-tight">Ask
+                            Question</h2>
+                        <div class="w-full grid grid-cols-1 gap-7">
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="ask-name">Name *</label>
-                                    <input id="ask-name" type="text" placeholder="Enter your name" required=""
+                                    <input name="bwe_ask_name" id="ask-name" type="text" placeholder="Enter your name"
+                                        required=""
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="ask-gender">Gender *</label>
-                                    <select id="ask-gender" required=""
+                                    <select name="bwe_ask_gender" id="ask-gender" required=""
                                         class="rounded-md cursor-pointer border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black text-base transition shadow-none">
                                         <option value="" disabled selected>-- Select Gender --</option>
                                         <option value="male">Male</option>
@@ -398,29 +400,31 @@
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="ask-email">Email *</label>
-                                    <input id="ask-email" type="email" placeholder="Enter your email" required=""
+                                    <input name="bwe_ask_email" id="ask-email" type="email"
+                                        placeholder="Enter your email" required=""
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold" for="ask-whatsapp">WhatsApp Number *</label>
-                                    <input id="ask-whatsapp" type="tel" placeholder="Enter your WhatsApp number" required=""
+                                    <label class="text-xs text-black font-semibold" for="ask-whatsapp">WhatsApp
+                                        Number*</label>
+                                    <input name="bwe_ask_whatsapp" id="ask-whatsapp" type="tel"
+                                        placeholder="Enter your WhatsApp number" required=""
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                             </div>
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold" for="ask-report-type">Report Type *</label>
-                                    <select id="ask-report-type" required="" disabled
-                                        class="rounded-md cursor-pointer border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black text-base transition shadow-none">
-                                        <option value="" disabled>--Select--</option>
-                                        <option value="one-question" selected>One Question</option>
-                                        <option value="two-question">Two Question</option>
-                                        <option value="three-question">Three Question</option>
-                                    </select>
+                                    <label class="text-xs text-black font-semibold" for="ask-report-type">Report Type
+                                        *</label>
+                                    <input name="bwe_ask_report_type" id="ask-report-type" value="One Question"
+                                        type="text" placeholder="Enter your report type" disabled required=""
+                                        class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none opacity-60 cursor-not-allowed">
+
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold" for="ask-category">Category *</label>
-                                    <select id="ask-category" required=""
+                                    <label class="text-xs text-black font-semibold" for="ask-category">Category
+                                        *</label>
+                                    <select name="bwe_ask_category" id="ask-category" required=""
                                         class="rounded-md cursor-pointer border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black text-base transition shadow-none">
                                         <option value="">Select Category</option>
                                         <option value="wealth">Wealth</option>
@@ -432,7 +436,7 @@
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label class="text-xs text-black font-semibold" for="ask-question">Question</label>
-                                <textarea id="ask-question"
+                                <textarea name="bwe_ask_question" id="ask-question"
                                     placeholder="Enter your question here..." rows="5"
                                     class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 resize-none text-black placeholder-black/60 text-base transition shadow-none"></textarea>
                             </div>
@@ -440,24 +444,28 @@
                                 <div class="text-lg text-black font-semibold">Your Birth Details</div>
                                 <div class="flex flex-col md:flex-row gap-4">
                                     <div class="flex-1 flex flex-col gap-2">
-                                        <label class="text-xs text-black font-semibold" for="ask-dob">Date of Birth *</label>
-                                        <input id="ask-dob" type="date" required=""
+                                        <label class="text-xs text-black font-semibold" for="ask-dob">Date of Birth
+                                            *</label>
+                                        <input name="bwe_ask_dob" id="ask-dob" type="date" required=""
                                             class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black text-base transition shadow-none">
                                     </div>
                                     <div class="flex-1 flex flex-col gap-2">
-                                        <label class="text-xs text-black font-semibold" for="ask-tob">Place of Birth</label>
-                                        <input id="ask-pob" type="text" placeholder="City, State, Country"
-                                        class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
+                                        <label class="text-xs text-black font-semibold" for="ask-tob">Place of
+                                            Birth</label>
+                                        <input name="bwe_ask_pob" id="ask-pob" type="text"
+                                            placeholder="City, State, Country"
+                                            class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                     </div>
                                 </div>
-                              
+
                             </div>
                             <div class="flex flex-col gap-2">
                                 <div class="flex items-center gap-2">
                                     <input id="ask-terms" type="checkbox" required=""
                                         class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-2 focus:ring-gray-300">
                                     <label class="text-sm text-black font-semibold" for="ask-terms">
-                                        I agree to the <a href="/terms-and-conditions/" class="text-primary underline hover:text-territory">Terms and Conditions</a>
+                                        I agree to the <a href="/terms-and-conditions/"
+                                            class="text-primary underline hover:text-territory">Terms and Conditions</a>
                                     </label>
                                 </div>
                             </div>
@@ -467,41 +475,53 @@
                                     <span class="text-lg text-black font-bold tracking-tight">₹699</span>
                                 </div>
                             </div>
-                            <button type="submit" class="w-full cursor-pointer md:w-auto rounded-full bg-primary text-white px-8 py-3 flex items-center justify-center gap-2 shadow-lg transition duration-200 hover:from-territory hover:to-sc focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-territory">
+                            <button type="submit" name="bwe_submit" id="bwe_ask_submit"
+                                class="w-full cursor-pointer md:w-auto rounded-full bg-primary text-white px-8 py-3 flex items-center justify-center gap-2 shadow-lg transition duration-200 hover:from-territory hover:to-sc focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-territory">
                                 <span class="text-base font-semibold tracking-wide">Pay with Razorpay</span>
                                 <span>
-                                    <svg width="22" height="22" viewBox="0 0 36 36"
-                                        xmlns="http://www.w3.org/2000/svg" class="rotate-90">
+                                    <svg width="22" height="22" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"
+                                        class="rotate-90">
                                         <path
                                             d="M27.66 15.61 18 6l-9.66 9.61A1 1 0 1 0 9.75 17L17 9.81v19.13a1 1 0 1 0 2 0V9.81L26.25 17a1 1 0 0 0 1.41-1.42Z"
                                             stroke="currentColor" stroke-width="2" fill="none"></path>
                                     </svg>
                                 </span>
                             </button>
-                           
+                        </div>
 
-                        </form>
                     </div>
                 </div>
 
                 <div class="col-span-full lg:col-span-4">
                     <div class="flex flex-col gap-4 z-20 sticky top-20">
-                        <img class="w-full h-full object-cover" src="https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/about-img.svg" alt="Dr. Deobdut . Deobdut Choudharry">
+                        <img class="w-full h-full object-cover"
+                            src="https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/about-img.svg"
+                            alt="Dr. Deobdut . Deobdut Choudharry">
 
-                        <div class="bg-[url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/yellow-banner.svg')] bg-no-repeat bg-center bg-cover p-6 rounded-xl flex lg:items-center justify-center overflow-hidden">
+                        <div
+                            class="bg-[url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/yellow-banner.svg')] bg-no-repeat bg-center bg-cover p-6 rounded-xl flex lg:items-center justify-center overflow-hidden">
                             <div class="sec-title m-0">
                                 <div class="text-black h3">Let’s Shape Your Cosmic Journey!</div>
                                 <p>
-                                    Ready to align your life with the stars? Connect with us today for personalized astrological
+                                    Ready to align your life with the stars? Connect with us today for personalized
+                                    astrological
                                     guidance crafted to illuminate your path.
                                 </p>
-                                <div class="flex flex-col md:flex-row md:items-center justi gap-4">
-                                    <a href="https://astro.batterseaconsultant.com/book-consultations/" class="flex group btn-primary">
-                                        <span class="btn-text group-hover:translate-x-9"> Talk to Astrologer </span>
-        
-                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-icon group-hover:-translate-x-41">
+                                <div class="flex items-center gap-4">
+                                    <a href="https://astro.batterseaconsultant.com/contact-us/"
+                                        class="group btn-primary">
+                                        <span class="btn-text group-hover:translate-x-9">
+                                            Contact Us Today
+                                        </span>
+
+                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="btn-icon group-hover:-translate-x-42">
                                             <rect width="32" height="32" rx="16" fill="white"></rect>
-                                            <path d="M11.832 11.3335H20.1654M20.1654 11.3335V19.6668M20.1654 11.3335L11.832 19.6668" stroke="black" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path
+                                                d="M11.832 11.3335H20.1654M20.1654 11.3335V19.6668M20.1654 11.3335L11.832 19.6668"
+                                                stroke="black" stroke-width="1.4" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
                                         </svg>
                                     </a>
                                 </div>
@@ -511,7 +531,6 @@
                 </div>
 
             </div>
-
         </div>
 
     </main>

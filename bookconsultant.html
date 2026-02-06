@@ -388,16 +388,13 @@
                     </svg>
                 </div>
 
-                <div
-                    class="col-span-full lg:col-span-8 px-6 py-8 lg:px-14 flex flex-col h-full justify-center relative z-10 bg-white">
+                <div class="col-span-full lg:col-span-8 px-6 py-8 lg:px-14 flex flex-col h-full justify-center relative z-10 bg-white">
                     <div class="flex flex-col items-center lg:items-start gap-4">
-                        <h2 class="h3 font-head font-bold mb-2 text-black lg:text-start w-full tracking-tight">Let's
-                            Connect</h2>
+                        <h2 class="h3 font-head font-bold mb-2 text-black lg:text-start w-full tracking-tight">Let's Connect</h2>
                         <form class="w-full grid grid-cols-1 gap-7" autocomplete="off">
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold" for="contact-name">Full Name
-                                        *</label>
+                                    <label class="text-xs text-black font-semibold" for="contact-name">Full Name*</label>
                                     <input id="contact-name" type="text" placeholder="Enter your full name" required=""
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
@@ -416,17 +413,22 @@
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold"
-                                        for="contact-subject">Subject</label>
-                                    <input id="contact-subject" type="text" placeholder="Subject (optional)"
-                                        class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
-                                </div>
-                            </div>
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="contact-phone">Location</label>
                                     <input id="contact-phone" type="tel" placeholder="e.g. Delhi"
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
+                                </div>
+                               
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-4">
+                                <div class="flex-1 flex flex-col gap-2">
+                                    <label class="text-xs text-black font-semibold" for="contact-subject">Select Service</label>
+                                    <select id="contact-consultation-type" class="rounded-md cursor-p border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
+                                        <option class="text-black text-base" value="">Select Service</option>
+                                        <option class="text-black text-base" value="palmistry-consultation">Palmistry Consultation</option>
+                                        <option class="text-black text-base" value="numerology-analysis">Numerology Analysis</option>
+                                        <option class="text-black text-base" value="palmistry-numerology-consultancy">Palmistry and Numerology Consultancy</option>
+                                        <option class="text-black text-base" value="numerology-match-making">Numerology Match Making- Kundli Milan</option>
+                                    </select> 
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="contact-subject">Consultation Type</label>
@@ -444,10 +446,16 @@
                                     placeholder="How can we help you? Write your message here..." rows="5" required=""
                                     class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 resize-none text-black placeholder-black/60 text-base transition shadow-none"></textarea>
                             </div>
+                            <div class="flex flex-col gap-4">
+                                <div class="flex items-center justify-between bg-amber-200 p-4 rounded-lg">
+                                    <div class="text-lg text-black font-semibold ">Final Amount</div>
+                                    <span class="text-lg text-black font-bold tracking-tight">₹699</span>
+                                </div>
+                            </div>
                             <div class="flex flex-col md:flex-row gap-4 items-center justify-between w-full mt-2">
                                 <button type="submit"
                                     class="w-full cursor-pointer md:w-auto rounded-full bg-primary text-white px-8 py-3 flex items-center gap-2 shadow-lg transition duration-200 hover:from-territory hover:to-sc focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-territory">
-                                    <span class="text-base font-semibold tracking-wide">Send Message</span>
+                                    <span class="text-base font-semibold tracking-wide">Book Consultations Now</span>
                                     <span>
                                         <svg width="22" height="22" viewBox="0 0 36 36"
                                             xmlns="http://www.w3.org/2000/svg" class="rotate-90">
