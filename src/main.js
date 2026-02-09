@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const header = document.querySelector("header");
   const toggleslideBtn = document.querySelector(".th-menu-toggle-btn");
   const cancelBtn = document.querySelector(".cancel-btn");
-  const headerUl = document.querySelector("header .th-menu ul");
+  const headerUl = document.querySelector("header nav ul");
   const faqItems = document.querySelectorAll(".faq-item");
   const faqSummaries = document.querySelectorAll(".faq-item summary");
   const tabComponents = document.querySelectorAll("[data-tab-component]");
@@ -21,6 +21,15 @@ document.addEventListener("DOMContentLoaded", function () {
   function enableScroll() {
     document.body.classList.remove("overflow-hidden");
   }
+	
+const headers = document.querySelectorAll(".tab-header");
+    headers.forEach(header => {
+        header.addEventListener("click", () => {
+            const content = header.nextElementSibling;
+            header.classList.toggle("active");
+            content.classList.toggle("active");
+        });
+    });
 
   // ============================================
   // STICKY HEADER
@@ -34,31 +43,42 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================================
   // MOBILE NAVIGATION
   // ============================================
-  if (toggleslideBtn && cancelBtn && headerUl) {
-    function toggleButtons() {
-      const backDrop = document.querySelector(".back-drop");
-      const isVisible = headerUl.classList.toggle("show-ul");
+  if (toggleslideBtn && cancelBtn && headerUl && header) {
 
-      if (isVisible) {
-        const newBackDrop = document.createElement("div");
-        header.appendChild(newBackDrop);
-        newBackDrop.classList.add("back-drop");
-        disableScroll();
+  function toggleButtons() {
+    const isVisible = headerUl.classList.toggle("show-ul");
 
-        newBackDrop.addEventListener("click", function () {
-          headerUl.classList.remove("show-ul");
-          newBackDrop.remove();
-          enableScroll();
-        });
-      } else {
-        backDrop?.remove();
+    if (isVisible) {
+      const newBackDrop = document.createElement("div");
+      newBackDrop.className = "back-drop";
+      header.appendChild(newBackDrop);
+      disableScroll();
+
+      newBackDrop.addEventListener("click", function () {
+        headerUl.classList.remove("show-ul");
+
+        if (newBackDrop && newBackDrop.parentNode) {
+          newBackDrop.parentNode.removeChild(newBackDrop);
+        }
+
         enableScroll();
-      }
-    }
+      });
 
-    toggleslideBtn.addEventListener("click", toggleButtons);
-    cancelBtn.addEventListener("click", toggleButtons);
+    } else {
+      const backDrop = document.querySelector(".back-drop");
+
+      if (backDrop && backDrop.parentNode) {
+        backDrop.parentNode.removeChild(backDrop);
+      }
+
+      enableScroll();
+    }
   }
+
+  toggleslideBtn.addEventListener("click", toggleButtons);
+  cancelBtn.addEventListener("click", toggleButtons);
+}
+
 
   // ============================================
   // DROPDOWN TOGGLES
@@ -292,8 +312,164 @@ document.addEventListener("DOMContentLoaded", function () {
   initStatsCounter();
 
   // ============================================
-  // Read More/Less Function
+  // CONSULTATION CARD SELECTION
   // ============================================
+  
+  const BOOKING_URL = '/book-consultations/';
+  document.querySelectorAll('.consultation-cta').forEach(function (consultationWrap) {
 
+    const service_type = consultationWrap.dataset.service;
+    const consultationCards = consultationWrap.querySelectorAll('.consultation-card');
+    const bookNowBtn = consultationWrap.querySelector('.bookNowBtn');
+
+    function updateCardStyles(card, isSelected) {
+      if (isSelected) {
+        card.classList.remove('border-[#0000004D]');
+        card.classList.add('border-primary', 'bg-[#FFF2F2]');
+      } else {
+        card.classList.remove('border-primary', 'bg-[#FFF2F2]');
+        card.classList.add('border-[#0000004D]');
+      }
+    }
+
+    function deselectAllCards(exceptCard) {
+      consultationCards.forEach(card => {
+        if (card !== exceptCard) {
+          const checkbox = card.querySelector('input[type="checkbox"]');
+          if (checkbox) {
+            checkbox.checked = false;
+            updateCardStyles(card, false);
+          }
+        }
+      });
+    }
+
+    consultationCards.forEach(card => {
+      const checkbox = card.querySelector('input[type="checkbox"]');
+
+      card.addEventListener('click', function (e) {
+        if (e.target === checkbox || e.target.closest('input[type="checkbox"]')) return;
+        if (checkbox.checked) return;
+
+        deselectAllCards(card);
+        checkbox.checked = true;
+        updateCardStyles(card, true);
+      });
+
+      checkbox.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        if (!checkbox.checked) {
+          updateCardStyles(card, false);
+          return;
+        }
+
+        deselectAllCards(card);
+        updateCardStyles(card, true);
+      });
+
+      updateCardStyles(card, checkbox.checked);
+    });
+
+    function getSelectedConsultationType() {
+      let selected = null;
+
+      consultationCards.forEach(card => {
+        const checkbox = card.querySelector('input[type="checkbox"]');
+        if (checkbox && checkbox.checked) {
+          selected = card.dataset.type; // audio | video
+        }
+      });
+
+      return selected;
+    }
+
+    function redirectToBooking() {
+      const type = getSelectedConsultationType();
+
+      if (!type) {
+        alert('Please select Audio or Video consultation');
+        return;
+      }
+
+      const url =
+        BOOKING_URL +
+        '?service=' + encodeURIComponent(service_type) +
+        '&type=' + encodeURIComponent(type);
+
+      window.location.href = url;
+    }
+
+    if (bookNowBtn) {
+      bookNowBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        redirectToBooking();
+      });
+    }
+
+  });
+		
+// Book consultation page: two flows, same amount logic
+  // Flow 1: User comes from services page with ?service=...&type=... → prefill and set amount
+  // Flow 2: User comes directly → selects service & type → amount updates on change
+  // Shared: amount is always derived from service + consultation type
+
+  var CONSULTATION_PAYMENT_MAP = {
+    'palmistry-consultation': { 'audio': 999, 'video': 1999 },
+    'numerology-analysis': { 'audio': 999, 'video': 1999 },
+    'palmistry-numerology-consultancy': { 'audio': 999, 'video': 1999 },
+    'numerology-match-making': { 'audio': 999, 'video': 1999 }
+  };
+
+  const serviceField = document.querySelector('[name="bwe_service"]');
+  const typeField = document.querySelector('[name="bwe_consultation_type"]');
+  const amountDisplay = document.getElementById('bwe-amount-display');
+  const amountInput = document.querySelector('[name="bwe_amount"]');
+  const amountWrap = document.querySelector('.bwe-amount-wrap');
+
+  function updateConsultationAmount() {
+    if (!amountDisplay || !amountInput) return;
+    var service = serviceField ? serviceField.value : '';
+    var type = typeField ? typeField.value : '';
+    var amount = null;
+    if (service && type && CONSULTATION_PAYMENT_MAP[service] && CONSULTATION_PAYMENT_MAP[service][type] !== undefined) {
+      amount = CONSULTATION_PAYMENT_MAP[service][type];
+    }
+    if (amount !== null) {
+      amountDisplay.textContent = '₹' + amount;
+      amountInput.value = String(amount);
+      if (amountWrap) amountWrap.classList.remove('hidden');
+    } else {
+      amountDisplay.textContent = '₹—';
+      amountInput.value = '';
+      if (amountWrap) amountWrap.classList.add('hidden');
+    }
+  }
+
+  // Flow 2: when user selects service/type directly, update amount
+  if (serviceField) serviceField.addEventListener('change', updateConsultationAmount);
+  if (typeField) typeField.addEventListener('change', updateConsultationAmount);
+
+  // Flow 1: from services page — prefill service & type from URL, then update amount
+  var params = new URLSearchParams(window.location.search);
+  var serviceFromUrl = params.get('service');
+  var typeFromUrl = params.get('type');
+
+  if (serviceFromUrl && serviceField) {
+    var serviceOptionExists = Array.from(serviceField.options).some(function (opt) { return opt.value === serviceFromUrl; });
+    if (serviceOptionExists) {
+      serviceField.value = serviceFromUrl;
+      serviceField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+  if (typeFromUrl && typeField) {
+    var typeOptionExists = Array.from(typeField.options).some(function (opt) { return opt.value === typeFromUrl; });
+    if (typeOptionExists) {
+      typeField.value = typeFromUrl;
+      typeField.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+
+  updateConsultationAmount();
 
 });

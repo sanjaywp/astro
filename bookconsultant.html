@@ -395,34 +395,32 @@
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="contact-name">Full Name*</label>
-                                    <input id="contact-name" type="text" placeholder="Enter your full name" required=""
+                                    <input name="bwe_name" id="contact-name" type="text" placeholder="Enter your full name" required=""
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold" for="contact-email">Email Address
-                                        *</label>
-                                    <input id="contact-email" type="email" placeholder="Enter your email address"
-                                        required=""
+                                    <label class="text-xs text-black font-semibold" for="contact-email">Email Address*</label>
+                                    <input name="bwe_email" id="contact-email" type="email" placeholder="Enter your email address" required=""
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                             </div>
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="contact-phone">Phone</label>
-                                    <input id="contact-phone" type="tel" placeholder="e.g. +91 81234 56789"
+                                    <input name="bwe_phone" id="contact-phone" type="tel" placeholder="e.g. +91 81234 56789"
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
                                     <label class="text-xs text-black font-semibold" for="contact-phone">Location</label>
-                                    <input id="contact-phone" type="tel" placeholder="e.g. Delhi"
+                                    <input name="bwe_location" id="contact-phone" type="text" placeholder="e.g. Delhi"
                                         class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                 </div>
                                
                             </div>
                             <div class="flex flex-col md:flex-row gap-4">
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold" for="contact-subject">Select Service</label>
-                                    <select id="contact-consultation-type" class="rounded-md cursor-p border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
+                                    <label class="text-xs text-black font-semibold" for="bwe-service">Select Service</label>
+                                    <select name="bwe_service" id="bwe-service" class="rounded-md cursor-p border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                         <option class="text-black text-base" value="">Select Service</option>
                                         <option class="text-black text-base" value="palmistry-consultation">Palmistry Consultation</option>
                                         <option class="text-black text-base" value="numerology-analysis">Numerology Analysis</option>
@@ -431,9 +429,8 @@
                                     </select> 
                                 </div>
                                 <div class="flex-1 flex flex-col gap-2">
-                                    <label class="text-xs text-black font-semibold" for="contact-subject">Consultation Type</label>
-                                        
-                                    <select id="contact-consultation-type" class="rounded-md cursor-p border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
+                                    <label class="text-xs text-black font-semibold" for="bwe-consultation-type">Consultation Type</label>                                        
+                                    <select name="bwe_consultation_type" id="bwe-consultation-type" class="rounded-md cursor-p border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 text-black placeholder-black/60 text-base transition shadow-none">
                                         <option class="text-black text-base" value="">Select Consultation Type</option>
                                         <option class="text-black text-base" value="video">Video Consultation</option>
                                         <option class="text-black text-base" value="audio">Audio Consultation</option>
@@ -442,19 +439,18 @@
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label class="text-xs text-black font-semibold" for="contact-message">Message *</label>
-                                <textarea id="contact-message"
-                                    placeholder="How can we help you? Write your message here..." rows="5" required=""
+                                <textarea name="bwe_Message" id="contact-message" placeholder="How can we help you? Write your message here..." rows="5" required=""
                                     class="rounded-md border border-gray-300 bg-white focus:ring-2 focus:ring-gray-300 px-4 py-3 resize-none text-black placeholder-black/60 text-base transition shadow-none"></textarea>
                             </div>
-                            <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-4 bwe-amount-wrap hidden">
                                 <div class="flex items-center justify-between bg-amber-200 p-4 rounded-lg">
                                     <div class="text-lg text-black font-semibold ">Final Amount</div>
-                                    <span class="text-lg text-black font-bold tracking-tight">₹699</span>
+                                    <span id="bwe-amount-display" class="text-lg text-black font-bold tracking-tight">₹—</span>
+                                    <input type="hidden" name="bwe_amount" id="bwe_amount" value="">
                                 </div>
                             </div>
                             <div class="flex flex-col md:flex-row gap-4 items-center justify-between w-full mt-2">
-                                <button type="submit"
-                                    class="w-full cursor-pointer md:w-auto rounded-full bg-primary text-white px-8 py-3 flex items-center gap-2 shadow-lg transition duration-200 hover:from-territory hover:to-sc focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-territory">
+                                <button type="submit" name="bwe_submit" class="w-full cursor-pointer md:w-auto rounded-full bg-primary text-white px-8 py-3 flex items-center gap-2 shadow-lg transition duration-200 hover:from-territory hover:to-sc focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-territory">
                                     <span class="text-base font-semibold tracking-wide">Book Consultations Now</span>
                                     <span>
                                         <svg width="22" height="22" viewBox="0 0 36 36"
@@ -847,8 +843,9 @@
     </footer>
 
 
-    <script src="./src/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="./src/main.js"></script>
+
 </body>
 
 </html>

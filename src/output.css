@@ -1026,15 +1026,6 @@
   .bg-white\/60 {
     background-color: color-mix(in oklab, #ffffff 60%, transparent);
   }
-  .bg-\[url\(\'https\:\/\/astro\.batterseaconsultant\.com\/wp-content\/uploads\/2026\/01\/birth-chart-bg\.svg\'\)\] {
-    background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/birth-chart-bg.svg');
-  }
-  .bg-\[url\(\'https\:\/\/astro\.batterseaconsultant\.com\/wp-content\/uploads\/2026\/01\/service-bg\.svg\'\)\] {
-    background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/service-bg.svg');
-  }
-  .bg-\[url\(\'https\:\/\/astro\.batterseaconsultant\.com\/wp-content\/uploads\/2026\/01\/tab-bg\.svg\'\)\] {
-    background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/tab-bg.svg');
-  }
   .bg-\[url\(\'https\:\/\/astro\.batterseaconsultant\.com\/wp-content\/uploads\/2026\/01\/yellow-banner\.svg\'\)\] {
     background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/yellow-banner.svg');
   }
@@ -1567,18 +1558,6 @@
     &::after {
       content: var(--tw-content);
       background-image: url('./images/choose-bg.svg');
-    }
-  }
-  .after\:bg-\[url\(\'https\:\/\/astro\.batterseaconsultant\.com\/wp-content\/uploads\/2026\/01\/choose-bg\.svg\'\)\] {
-    &::after {
-      content: var(--tw-content);
-      background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/choose-bg.svg');
-    }
-  }
-  .after\:bg-\[url\(\'https\:\/\/astro\.batterseaconsultant\.com\/wp-content\/uploads\/2026\/01\/circle-trans\.svg\'\)\] {
-    &::after {
-      content: var(--tw-content);
-      background-image: url('https://astro.batterseaconsultant.com/wp-content/uploads/2026/01/circle-trans.svg');
     }
   }
   .after\:bg-contain {
@@ -2147,11 +2126,6 @@
       top: calc(var(--spacing) * 5);
     }
   }
-  .lg\:-left-24 {
-    @media (width >= 64rem) {
-      left: calc(var(--spacing) * -24);
-    }
-  }
   .lg\:order-1 {
     @media (width >= 64rem) {
       order: 1;
@@ -2440,6 +2414,11 @@
   .lg\:gap-2 {
     @media (width >= 64rem) {
       gap: calc(var(--spacing) * 2);
+    }
+  }
+  .lg\:gap-4 {
+    @media (width >= 64rem) {
+      gap: calc(var(--spacing) * 4);
     }
   }
   .lg\:gap-6 {
@@ -2748,6 +2727,9 @@
   }
   body {
     overflow-x: hidden;
+  }
+  button, [class*="btn"] {
+    cursor: pointer;
   }
   .word-break-all {
     word-break: break-all;

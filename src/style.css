@@ -64,6 +64,12 @@
     overflow-x: hidden;
   }
 
+  /* Buttons: pointer cursor */
+  button,
+  [class*="btn"] {
+    cursor: pointer;
+  }
+
   /* Break word  */
   .word-break-all{
     word-break: break-all;
