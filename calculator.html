@@ -381,17 +381,20 @@
                     <div class="grid grid-cols-12 gap-5 lg:gap-7">
                         <div class="col-span-full lg:col-span-6">
                             <label class="block mb-1">Name *</label>
-                            <input id="name" type="text" class="w-full border border-gray-300 p-2 rounded" placeholder="Full birth name">
+                            <input id="name" type="text" class="w-full border border-gray-300 p-2 rounded"
+                                placeholder="Full birth name">
                         </div>
 
                         <div class="col-span-full lg:col-span-6">
                             <label class="block mb-1">Email *</label>
-                            <input id="email" type="email" placeholder="Enter your email" class="w-full border border-gray-300 p-2 rounded">
+                            <input id="email" type="email" placeholder="Enter your email"
+                                class="w-full border border-gray-300 p-2 rounded">
                         </div>
 
                         <div class="col-span-full lg:col-span-6">
                             <label class="block mb-1">Phone *</label>
-                            <input id="phone" type="text" placeholder="Enter your phone number" class="w-full border border-gray-300 p-2 rounded">
+                            <input id="phone" type="text" placeholder="Enter your phone number"
+                                class="w-full border border-gray-300 p-2 rounded">
                         </div>
 
                         <div class="col-span-full lg:col-span-6">
@@ -409,76 +412,76 @@
                         </div>
 
                         <div class="col-span-full">
-                            <button onclick="calculateNumerology()" type="button" class="w-full cursor-pointer md:w-auto rounded-full bg-primary text-white px-8 py-3 flex items-center justify-center gap-2 shadow-lg transition duration-200 hover:from-territory hover:to-sc focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-territory">
-                            <span class="text-base font-semibold tracking-wide">Submit</span>
-                            <span>
-                                <svg width="22" height="22" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-                                    <path d="M27.66 15.61 18 6l-9.66 9.61A1 1 0 1 0 9.75 17L17 9.81v19.13a1 1 0 1 0 2 0V9.81L26.25 17a1 1 0 0 0 1.41-1.42Z" stroke="currentColor" stroke-width="2" fill="none"></path>
-                                </svg>
-                            </span>
-                        </button>
-                            
+                            <button onclick="calculateNumerology()" type="button"
+                                class="w-full cursor-pointer md:w-auto rounded-full bg-primary text-white px-8 py-3 flex items-center justify-center gap-2 shadow-lg transition duration-200 hover:from-territory hover:to-sc focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-territory">
+                                <span class="text-base font-semibold tracking-wide">Submit</span>
+                                <span>
+                                    <svg width="22" height="22" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"
+                                        class="rotate-90">
+                                        <path
+                                            d="M27.66 15.61 18 6l-9.66 9.61A1 1 0 1 0 9.75 17L17 9.81v19.13a1 1 0 1 0 2 0V9.81L26.25 17a1 1 0 0 0 1.41-1.42Z"
+                                            stroke="currentColor" stroke-width="2" fill="none"></path>
+                                    </svg>
+                                </span>
+                            </button>
+
                         </div>
                     </div>
                 </div>
 
                 <!-- ================= RESULT ================= -->
-                <!-- ================= RESULT ================= -->
-                <div id="resultBox" class="mt-4 lg:mt-8 hidden px-6 py-8 lg:px-10 flex flex-col h-full justify-center relative z-10 bg-white rounded-2xl shadow-lg border border-gray-300">
+                <div id="resultBox" class="hidden max-w-[900px] mx-auto bg-white rounded-xl overflow-hidden shadow-md mt-6">
+                    <div class="bg-[#FFB6C1] px-6 py-3 rounded-t-xl text-center">
+                        <div class="text-[#8B0000] font-head font-bold text-lg">Your Numerology Details</div>
+                    </div>
 
-                    <h3 class="h4 font-head font-bold mb-4 text-black">Your Numerology Details</h3>
+                    <div class="p-6">
+                        <table class="w-full">
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Basic Number</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="basicNumber"></td>
+                                </tr>
 
-                    <table class="w-full text-sm">
-                        <tbody class="divide-y">
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Destiny Number</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="destinyNumber"></td>
+                                </tr>
 
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Basic Number</td>
-                                <td id="basicNumber" class="p-3"></td>
-                            </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Name Number</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="nameNumber"></td>
+                                </tr>
 
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Destiny Number</td>
-                                <td id="destinyNumber" class="p-3"></td>
-                            </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Kua Number</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="kuaNumber"></td>
+                                </tr>
 
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Name Number</td>
-                                <td id="nameNumber" class="p-3"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Kua Number</td>
-                                <td id="kuaNumber" class="p-3"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Friendly Numbers</td>
-                                <td id="friendlyNumbers" class="p-3"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Enemy Numbers</td>
-                                <td id="enemyNumbers" class="p-3"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Lucky Colours</td>
-                                <td id="luckyColors" class="p-3"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Unlucky Colours</td>
-                                <td id="unluckyColors" class="p-3"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-3 font-semibold text-red-700">Sun Sign</td>
-                                <td id="sunSign" class="p-3"></td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Friendly Numbers</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="friendlyNumbers"></td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Enemy Numbers</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="enemyNumbers"></td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Lucky Colours</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="luckyColors"></td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Unlucky Colours</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="unluckyColors"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray-900 font-bold text-sm py-3 text-left">Sun Sign</td>
+                                    <td class="text-gray-800 text-sm py-3 text-left" id="sunSign"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                
 
             </div>
 
