@@ -4,6 +4,7 @@
 @import "tailwindcss";
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite-datepicker";
+@source "../*.html";
 
 /* ===========================
   Theme Variables & Keyframes
