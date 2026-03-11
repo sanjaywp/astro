@@ -553,6 +553,8 @@ display: block;
     @apply pr-4;
   }
 
+
+
   /* Section Title Styles */
   .sec-title {
     @apply mx-auto mb-8 max-w-3xl;

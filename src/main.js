@@ -197,6 +197,25 @@ const headers = document.querySelectorAll(".tab-header");
       992: { slidesPerView: 2, spaceBetween: 30 },
     },
   });
+  const instagramSwiper = new Swiper(".instagram-slider", {
+    loop: true,
+    grabCursor: true,
+    draggable: true,
+    spaceBetween: 20,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".instagram-slider-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      768: { slidesPerView: 1, spaceBetween: 25 },
+      992: { slidesPerView: 3, spaceBetween: 25 },
+      1200: { slidesPerView: 4, spaceBetween: 25 },
+    },
+  });
 
   // ============================================
   // TAB COMPONENT
