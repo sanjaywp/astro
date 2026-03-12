@@ -710,8 +710,8 @@
     <style>
         .footer-sticky-bar {
             background-color: #0d223c;
-            /* position: fixed; */
-            bottom: 0;
+            position: fixed;
+            bottom: -1px;
             left: 0;
             right: 0;
             z-index: 50;
@@ -727,7 +727,6 @@
         }
 
 
-        /* Promo top bar (screenshot style) */
         .landing-top-bar {
             background-color: #CC0000;
         }
@@ -776,7 +775,6 @@
             }
         }
 
-        /* Masterclass hero (screenshot style) */
         .masterclass-hero {
             background: linear-gradient(135deg, #5c1a1a 0%, #3d0f0f 50%, #2a0a0a 100%);
             position: relative;
@@ -1729,26 +1727,26 @@
     </main>
 
 
-    <footer class="bg-[#3C140F] py-10 border-t-[5px] border-b-[2px] border-[#ECD71F]">
+    <footer class="bg-[#3C140F] pt-10 pb-8 border-t-[5px] border-b-[2px] border-[#ECD71F] mb-[75px]">
         <div class="container gap-4 py-4 text-sm">
             <div
-                class="flex flex-col items-center justify-center mx-auto lg:text-left lg:max-w-[700px] w-full mb-[70px]">
+                class="flex flex-col items-center justify-center mx-auto lg:text-left lg:max-w-[700px] w-full lg:mb-[70px] mb-[30px]">
                 <div class="h2 font-head text-white text-center">Apni Zindagi Badalne Ka Mauka Hath Se Jane Na Dein!
                 </div>
                 <p class="text-center text-sm text-[#e5bd86]">Seats bohot limited hain. Abhi free mein register karein
                     aur ₹4,999 ke bonus turant
                     prapt karein.</p>
-                <a href="https://deoprophecy.com/numerology-analysis/"
-                    class="text-base text-center group px-[80px] text-black font-medium bg-tertiary rounded-full flex items-center justify-center py-2.5 hover:bg-primary hover:text-white transition-all duration-200 ease-in-out flex-col">
+                <a href="#"
+                    class="text-base text-center group px-6 lg:px-[80px] text-black font-medium bg-tertiary rounded-full flex items-center justify-center py-2.5 hover:bg-primary hover:text-white transition-all duration-200 ease-in-out flex-col">
                     <div class="block">Meri Seat Reserve Karein</div>
                     <small class="block"> (100% FREE)</small>
                 </a>
             </div>
 
 
-            <div class="flex items-center justify-between border-t-[1px] border-[#e5bd8626] pt-5">
-                <span class="text-sm text-[#e5bd86]">© 2026 Deo Prophecy Masterclass. All rights reserved.</span>
-                <div class="flex items-center gap-3">
+            <div class="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0 lg:justify-between border-t-[1px] border-[#e5bd8626] pt-5">
+                <span class="text-sm text-[#e5bd86] order-2 lg:order-1 text-center lg:text-left">© 2026 Deo Prophecy Masterclass. All rights reserved.</span>
+                <div class="flex items-center gap-3 order-1 lg:order-2">
                     <a href="https://deoprophecy.com/privacy-policy/"
                         class="text-sm text-[#e5bd86] hover:underline">Privacy Policy</a>
                     <a href="https://deoprophecy.com/terms-of-service/"
@@ -1764,15 +1762,17 @@
         <div class="container flex flex-wrap items-center justify-between gap-4 py-3 lg:py-4">
             <div class="flex flex-wrap items-center gap-2 lg:gap-3">
                 <span class="live-webinar-badge text-white">LIVE WEBINAR</span>
-                <span class="text-white">Join @</span>
-                <span class="text-white font-bold text-xl lg:text-2xl" style="color: #f3a921;">₹99</span>
-                <span class="text-white line-through text-sm">₹1999</span>
-                <span class="text-white text-sm flex items-center gap-1">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                    Limited Seats Left!
-                </span>
+                <div class="flex flex-wrap items-center gap-2 lg:gap-3">                    
+                    <span class="text-white">Join @</span>
+                    <span class="text-white font-bold text-xl lg:text-2xl" style="color: #f3a921;">₹99</span>
+                    <span class="text-white line-through text-sm">₹1999</span>
+                    <span class="text-white text-sm flex items-center gap-1">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                        Limited Seats Left!
+                    </span>
+                </div>
             </div>
             <a class="text-base text-center group px-5 text-black font-medium bg-tertiary rounded-full flex items-center justify-center lg:gap-2 py-2.5 hover:bg-primary hover:text-white transition-all duration-200 ease-in-out"
                 href="https://deoprophecy.com/numerology-analysis/">
@@ -1804,7 +1804,7 @@
 
     <script>
         (function () {
-            var end = Date.now() + 50 * 60 * 60 * 1000; // 50 hours from now
+            var end = Date.now() + 50 * 60 * 60 * 1000;
             var el = document.getElementById('offer-countdown');
             var formEl = document.getElementById('form-countdown');
             if (!el && !formEl) return;
