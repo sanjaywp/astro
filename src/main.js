@@ -197,6 +197,8 @@ const headers = document.querySelectorAll(".tab-header");
       992: { slidesPerView: 2, spaceBetween: 30 },
     },
   });
+
+
   const instagramSwiper = new Swiper(".instagram-slider", {
     loop: true,
     grabCursor: true,
@@ -211,8 +213,9 @@ const headers = document.querySelectorAll(".tab-header");
       clickable: true,
     },
     breakpoints: {
-      768: { slidesPerView: 1, spaceBetween: 25 },
-      992: { slidesPerView: 3, spaceBetween: 25 },
+      600: { slidesPerView: 1, spaceBetween: 25 },
+      768: { slidesPerView: 2, spaceBetween: 25 },
+      992: { slidesPerView: 2, spaceBetween: 25 },
       1200: { slidesPerView: 4, spaceBetween: 25 },
     },
   });
